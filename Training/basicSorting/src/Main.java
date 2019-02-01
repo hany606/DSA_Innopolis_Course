@@ -79,6 +79,24 @@ public class Main {
         }
     }
 
+    static void selectionSort(int[] list, int n)
+    {
+        for(int i = 0; i < n; i++)
+        {
+            int index = i;
+            for(int x = i; x < n; x++)
+            {
+                //get the smallest element than it
+                if(list[x] < list[index]) {
+                    index = x;
+                }
+            }
+            swap(list,index,i);
+        }
+
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -100,9 +118,18 @@ public class Main {
             list[i] = originalList[i];
         }
         print(list,size);
-
         insertionSort(list,size);
         print(list,size);
+
+        //Resetting the list to the original format
+        for(int i = 0; i < size; i++){
+            list[i] = originalList[i];
+        }
+
+        print(list,size);
+        selectionSort(list,size);
+        print(list,size);
+
 
     }
 }
