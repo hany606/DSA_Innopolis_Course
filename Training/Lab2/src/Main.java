@@ -26,6 +26,7 @@ public class Main {
         }
 
 
+        //it can be optimized more to start the second loop from i+1 and the condition for the first i < size-1
         for(int i = 0; i < size; i++)
         {
             int index = i;
