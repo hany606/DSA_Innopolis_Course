@@ -16,6 +16,124 @@ public class Main {
         void printAll();
     }
 
+    public static class DA <E> implements List<E> {
+        private int size = 0;
+        private int initialSize = 100;
+        private E[] array;
+        DA () {
+            array = (E[]) new Object[initialSize];
+        }
+
+
+        @Override
+        public boolean isEmpty() {
+            if(size == 0)
+                return true;
+
+            return false;
+        }
+        //add function to move, expand and copy
+
+        @Override
+        public void add(int i, E e) {
+            if(i+1 > size && i != 0) {
+                throw new IndexOutOfBoundsException();
+            }
+            else {
+                if(size == initialSize) {
+                    System.out.println("Double");
+                    //copy, expand, move
+                    E[] array2 = (E[]) new Object[initialSize];
+                    for(int x = 0; x < initialSize; x++) {
+                        array2[x] = array[x];
+                    }
+                    initialSize *= 2;
+                    array = (E[]) new Object[initialSize];
+                    for(int x = 0; x < initialSize; x++) {
+                        array[x] = array2[x];
+                    }
+                }
+                array[i] = e;
+                size++;
+            }
+        }
+
+        @Override
+        public void addFirst(E e) {
+            add(0,e);
+        }
+
+        @Override
+        public void addLast(E e) {
+            add(size,e);
+        }
+
+        @Override
+        public void delete(E e) {
+            boolean flag = false;
+            for(int x = 0; x < size-1; x++) {
+                if(array[x] == e) flag = true;
+                if(flag) {
+                    array[x] = array[x+1];
+                }
+            }
+            if(flag)
+                array[size-1] = null;
+            else
+                throw new NoSuchElementException();
+            size--;
+
+        }
+
+        @Override
+        public void delete(int i) {
+            if(i+1 > size)
+                throw new IndexOutOfBoundsException();
+
+            else
+                delete(array[i]);
+
+        }
+
+        @Override
+        public void deleteFirst() {
+            delete(1);
+        }
+
+        @Override
+        public void deleteLast() {
+            delete(size-1);
+        }
+
+        @Override
+        public void set(int i, E e) {
+            if(i+1 > size )
+                throw new IndexOutOfBoundsException();
+            else
+                array[i] = e;
+
+        }
+
+        @Override
+        public E get(int i) {
+            if(i+1 > size)
+                throw new IndexOutOfBoundsException();
+            else
+                return array[i];
+        }
+
+        @Override
+        public void printAll() {
+            System.out.printf("Size = %d, ", size);
+            System.out.printf("Initial Size = %d\n", initialSize);
+            for(int x = 0; x < size; x++)
+                System.out.printf("index: %d -- value: %d \n", x,array[x]);
+            System.out.printf("-------------------------\n");
+
+
+        }
+    }
+
     public static class DLL_Node <E> {
 
         private DLL_Node<E> next;
@@ -94,12 +212,13 @@ public class Main {
         public void add(int i, E o) {
 
             //to initialize the list
-            if(size == 0) {
+            if(i+1 > size && (i != 0)) {
                 throw new IndexOutOfBoundsException();
 //                addFirst(o);
             }
             //if the list has greater number than this index
-            else if(i+1 <= size) {
+            //else if(i+1 <= size) {
+             else {
                 if (i == 0)
                     addFirst(o);
                 else if (i == size - 1)
@@ -131,12 +250,7 @@ public class Main {
 
             }
 
-            //if not
-            //add in the last
-            else {
-                throw new IndexOutOfBoundsException();
-//                addLast(o);
-            }
+
 
         }
 
@@ -362,10 +476,17 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 
-        DLL<Integer> li = new DLL<>();
+//        DLL<Integer> li = new DLL<>();
+        DA<Integer> li = new DA<>();
+
+        //try add from first using the index and last and also delete
 
         li.printAll();
+        li.add(0,Integer.parseInt("01"));
         li.addFirst(Integer.parseInt("10"));
+        li.addFirst(Integer.parseInt("10"));
+        li.add(1,Integer.parseInt("01"));
+
         li.printAll();
         li.deleteFirst();
         li.printAll();
@@ -403,6 +524,8 @@ public class Main {
         li.printAll();
         li.delete(0);
         li.printAll();
+
+
 
     }
 }
