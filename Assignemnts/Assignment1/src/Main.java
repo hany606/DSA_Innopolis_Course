@@ -1,5 +1,7 @@
 import java.util.NoSuchElementException;
 
+
+
 public class Main {
 
     public interface List<E>{
@@ -36,7 +38,7 @@ public class Main {
 
         @Override
         public void add(int i, E e) {
-            if(i+1 > size && i != 0) {
+            if(i > size && i != 0) {
                 throw new IndexOutOfBoundsException();
             }
             else {
@@ -44,14 +46,24 @@ public class Main {
                     System.out.println("Double");
                     //copy, expand, move
                     E[] array2 = (E[]) new Object[initialSize];
-                    for(int x = 0; x < initialSize; x++) {
+                    for (int x = 0; x < initialSize; x++) {
                         array2[x] = array[x];
                     }
                     initialSize *= 2;
                     array = (E[]) new Object[initialSize];
-                    for(int x = 0; x < initialSize; x++) {
+                    for (int x = 0; x < initialSize; x++) {
                         array[x] = array2[x];
                     }
+                }
+                //shift
+                E tmp = (E) new Object();
+                E tmp2 = (E) new Object();
+                tmp = array[i];
+                for(int x = i; x < size; x++) {
+                    tmp2 = array[x+1];
+                    array[x+1] = tmp;
+                    tmp = tmp2;
+
                 }
                 array[i] = e;
                 size++;
@@ -71,7 +83,7 @@ public class Main {
         @Override
         public void delete(E e) {
             boolean flag = false;
-            for(int x = 0; x < size-1; x++) {
+            for(int x = 0; x < size; x++) {
                 if(array[x] == e) flag = true;
                 if(flag) {
                     array[x] = array[x+1];
@@ -97,7 +109,7 @@ public class Main {
 
         @Override
         public void deleteFirst() {
-            delete(1);
+            delete(0);
         }
 
         @Override
@@ -482,31 +494,31 @@ public class Main {
         //try add from first using the index and last and also delete
 
         li.printAll();
-        li.add(0,Integer.parseInt("01"));
+        li.add(0,Integer.parseInt("11"));
         li.addFirst(Integer.parseInt("10"));
-        li.addFirst(Integer.parseInt("10"));
-        li.add(1,Integer.parseInt("01"));
+        li.addFirst(Integer.parseInt("8"));
+        li.add(1,Integer.parseInt("9"));
 
         li.printAll();
         li.deleteFirst();
         li.printAll();
-        li.addFirst(Integer.parseInt("9"));
+        li.addFirst(Integer.parseInt("7"));
         li.printAll();
-        li.add(0,8);
+        li.add(0,6);
         li.printAll();
-        li.add(1,89);
+        li.add(1,61);
         li.printAll();
-        li.addLast(11);
+        li.addLast(12);
         li.printAll();
 
         li.deleteFirst();
         li.printAll();
-        li.addFirst(88);
+        li.addFirst(59);
         li.printAll();
 
         li.deleteLast();
         li.printAll();
-        li.addLast(111);
+        li.addLast(13);
         li.printAll();
 
 //        li.delete(1);
