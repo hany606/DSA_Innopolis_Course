@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f67f6c2-403f-4838-a519-08b60fde0d79" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -17,11 +18,12 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="988" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1134" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#List#0;class#Main#0" expanded="false" />
+                <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
                 <element signature="e#3700#3701#0" expanded="true" />
                 <element signature="e#3765#3766#0" expanded="true" />
                 <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -34,11 +36,14 @@
                 <element signature="e#11196#11197#0" expanded="true" />
                 <element signature="e#11231#11232#0" expanded="true" />
                 <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-                <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-                <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-                <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-                <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-                <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+                <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+                <element signature="class#Team#0;class#Main#0" expanded="false" />
+                <element signature="method#main#0;class#Main#0" expanded="false" />
+                <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+                <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+                <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+                <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+                <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
               </folding>
             </state>
           </provider>
@@ -187,7 +192,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34188035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34188035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -239,7 +244,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -251,6 +256,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -263,11 +269,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -279,6 +288,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -291,11 +301,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -307,6 +320,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -319,11 +333,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -335,6 +352,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -347,11 +365,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -363,6 +384,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -375,11 +397,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -391,6 +416,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -403,11 +429,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -419,6 +448,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -431,11 +461,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>
@@ -444,16 +477,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="31" />
+          <folding>
+            <element signature="e#571#572#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="988" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1134" selection-end-column="0" />
+        <state relative-caret-position="153">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="class#DynamicArray#0;class#Main#0" expanded="false" />
             <element signature="e#3700#3701#0" expanded="true" />
             <element signature="e#3765#3766#0" expanded="true" />
             <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
@@ -466,11 +504,14 @@
             <element signature="e#11196#11197#0" expanded="true" />
             <element signature="e#11231#11232#0" expanded="true" />
             <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
-            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
-            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
-            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
+            <element signature="class#DoublyLinkedList#0;class#Main#0" expanded="false" />
+            <element signature="class#Team#0;class#Main#0" expanded="false" />
+            <element signature="method#main#0;class#Main#0" expanded="false" />
+            <marker date="1550359153790" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550359153790" expanded="true" signature="37539:37756" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="38439:39562" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41067:42742" ph="..." />
+            <marker date="1550359153790" expanded="true" signature="41341:41510" ph="..." />
           </folding>
         </state>
       </provider>

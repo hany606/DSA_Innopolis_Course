@@ -846,26 +846,34 @@ public class Main {
 
     }
 
-
+    //----------------------------------2.3-------------------------------------------------------------
+    //Submission Number: 50038906
+    //Submission Link: https://codeforces.com/group/lk8Ud0ZeBu/contest/238197/submission/50038906
+    /**
+     * This is the implementation of element that represent the properties of the team
+     */
     public static class Team implements Comparable {
+        // Variable to describe some properties of the team
         private String name;
-        private int teamRank;
         private int numGames;
         private int wins;
         private int ties;
         private int goalsScored;
         private int goalsAgainst;
 
-        public Team (String name, int teamRank){
+        /**
+         * This is the constructor of the Class to initialize the team
+         * @param name This is the name of the team
+         */
+        public Team (String name){
             this.name = name;
-            this.teamRank = teamRank;
             this.numGames = 0;
             this.wins = 0;
             this.ties = 0;
             this.goalsScored = 0;
             this.goalsAgainst = 0;
         }
-
+        // Setters and Getters and some helper functions
         public int getGoalsAgainst() {
             return goalsAgainst;
         }
@@ -876,10 +884,6 @@ public class Main {
 
         public int getNumGames() {
             return numGames;
-        }
-
-        public int getTeamRank() {
-            return teamRank;
         }
 
         public int getTies() {
@@ -921,9 +925,6 @@ public class Main {
             this.numGames = numGames;
         }
 
-        public void setTeamRank(int teamRank) {
-            this.teamRank = teamRank;
-        }
 
         public void setTies(int ties) {
             this.ties = ties;
@@ -950,9 +951,15 @@ public class Main {
         }
 
 
+        /**
+         * This is used to make the team objects be able to be compared
+         * @param o This is the second object
+         * @return int -1 or less if the second object is greater, 1 or more if the second object is less and 0 if they are equa
+         */
         @Override
         public int compareTo(Object o) {
-            Team tmp = (Team) o;
+            Team tmp = (Team) o;    // Cast the object to Team
+            // The Comparing criteria
             if(this.getTotalPoints() > tmp.getTotalPoints()) return 1;
             else if(this.getTotalPoints() < tmp.getTotalPoints()) return -1;
             else {
@@ -966,7 +973,10 @@ public class Main {
                 }
             }
         }
-
+        /**
+         * This is used to convert the data of the team to String
+         * @return String converted string of the data
+         */
         public String toString() {
             return String.format("%s %dp, %dg (%d-%d-%d), %dgd (%d-%d)",getName(),getTotalPoints(),getNumGames(),getWins(),getTies(),getLosses(),getGoalsDifference(),getGoalsScored(),getGoalsAgainst());
         }
@@ -977,55 +987,63 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 //        /*
-        Scanner input = new Scanner(System.in);
-        int N = Integer.parseInt(input.nextLine());
+        Scanner input = new Scanner(System.in); // Initiate the input and link with System.in
+        int N = Integer.parseInt(input.nextLine()); // Scan the number of tournament
 
+        // Take the data if the t_th tournament
         for(int t = 0; t < N; t++) {
-            String tournamentName = input.nextLine();
-            System.out.println(tournamentName);
-            int T = Integer.parseInt(input.nextLine());
-            List<Team> teams = new DynamicArray<>();
+            String tournamentName = input.nextLine();   // Input the name of the tournament
+            System.out.println(tournamentName);         // Print the name of the tournament
+            int T = Integer.parseInt(input.nextLine()); // Scan the number of Teams
+            List<Team> teams = new DynamicArray<>();    // Initiate a list of teams objects
 //            List<Team> teams = new DoublyLinkedList<>();
 
+            // Take the names of the teams
             for (int i = 0; i < T; i++) {
                 String teamName = input.nextLine();
-                Team tmp = new Team(teamName, i+1);
-                teams.addLast(tmp);
+                Team tmp = new Team(teamName);
+                teams.addLast(tmp); // Add the team to the end of the list
             }
 
-            int G = Integer.parseInt(input.nextLine());
+            int G = Integer.parseInt(input.nextLine()); // Scan the number of matches
+            // Take the data of the matches
             for(int g = 0; g < G; g++) {
-//                System.out.println("--------New--------");
-                String s = input.nextLine();
-                boolean flag = false, flag1 = false;
-                String teamName1 = "", teamName2 = "";
-                int teamGoals1 = 0, teamGoals2 = 0;
-                int hashIndex = 0, colIndex = 0;
+                String s = input.nextLine();            // Scan the whole line
+                boolean flag = false;                   // Create flag to help in parsing the line
+                String teamName1 = "", teamName2 = "";  // Store the names of the teams
+                int teamGoals1 = 0, teamGoals2 = 0;     // Store the goals of the teams
+                int hashIndex = 0, colIndex = 0;        // Store the index of # and the index of :
+                // Iterate over the Line
                 for(int x = 0; x < s.length(); x++) {
+
                     if(s.charAt(x) == '#') {
+                        // If there is a hash and the flag is false, means that this is the end of the first team name
                         if(flag == false) {
                             teamName1 = s.substring(0,x);
                             hashIndex = x;
                             flag = true;
                             continue;
                         }
+                        // This means that this is the start of the second team name
                         else {
                             teamGoals2 = Integer.parseInt(s.substring(colIndex+1,x));
                             teamName2 = s.substring(x+1,s.length());
                             break;
                         }
                     }
+
+                    //If we got :, it is the end of the first team goals
                     if(s.charAt(x) == ':') {
                         colIndex = x;
                         teamGoals1 = Integer.parseInt(s.substring(hashIndex + 1, x));
-                        flag1 = true;
                         continue;
                     }
                 }
-//                                System.out.printf("Team1: %s -> %d \t Team2: %s -> %d\n",teamName1,teamGoals1,teamName2,teamGoals2);
-
+                // Linear search for the team to update their data
                 for(int i = 0; i < T; i++) {
                     Team tmp = teams.get(i);
+                    // If we found the team, just update its data
+
                     if (tmp.name.equals(teamName1)) {
                         tmp.addNumGames();
                         tmp.addGoalsScored(teamGoals1);
@@ -1043,21 +1061,17 @@ public class Main {
                         teams.set(i,tmp);
                     }
                 }
-
-
-
-//                System.out.printf("Team1: %s -> %d \t Team2: %s -> %d\n",teamName1,teamGoals1,teamName2,teamGoals2);
             }
-            teams.sort();
-//            teams.printAll();
+            teams.sort();   // Sort the List
+            // Print the List in reverse order
             for(int i = T-1; i >= 0; i--) {
                 Team tmp = teams.get(i);
                 System.out.printf("%d) "+tmp.toString()+'\n',T-i);
             }
-//            System.out.println("Finish teams------------");
             System.out.println("");
         }
 //        */
+        //---------------------------Testing data for the data structures---------------------------
     /*
 //        List<Integer> li = new DoublyLinkedList<>();
         List<Integer> li = new DynamicArray<>();
