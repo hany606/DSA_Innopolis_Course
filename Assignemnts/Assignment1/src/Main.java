@@ -1,44 +1,155 @@
-
-
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Data Structure & Algorithms Course (DSA)
+ * Innopolis University, Sprinng 2019
+ * Assignment 1
+ *
+ * @author Hany Hamed
+ */
 
 public class Main {
-
+    /**
+     * This is just the interface for List
+     * @param <E> This is the generic type of the elements inside the List
+     */
     public interface List<E>{
+        /**
+         * This function is made to know if the List is empty or not
+         * @return boolean This returns true if the List is empty otherwise False
+         */
         boolean isEmpty();
+
+        /**
+         * This method is used to add an element in certain position
+         * @param i This is the position to put the element e
+         * @param e This is the element we need to add
+         * @return Nothing
+         */
         void add(int i, E e);
+
+        /**
+         * This method is used to add an element in the first position of the List
+         * @param e This is the element we need to add in the first of the List
+         * @return Nothing
+         */
         void addFirst(E e);
+
+        /**
+         * This method is used to add an element in the last position of the List
+         * @param e This is the element we need to add
+         * @return Nothing
+         */
         void addLast(E e);
+
+        /**
+         * This method is used to delete a certain element from the List
+         * @param e This is the element we need to delete
+         * @return Nothing
+         */
         void delete(E e);
+
+        /**
+         * This method is used to delete the ith element from the List
+         * @param i This is the index of the element we need to delete
+         * @return Nothing
+         */
         void delete(int i);
+
+        /**
+         * This method is used to delete the first element from the List
+         * @return Nothing
+         */
         void deleteFirst();
+
+        /**
+         * This method is used to delete the last element from the List
+         * @return Nothing
+         */
         void deleteLast();
+
+        /**
+         * This method is used to set the value of the ith element by some value
+         * @param i This is the index of the element
+         * @param e This is the element we need to set its value
+         * @return Nothing
+         */
         void set(int i, E e);
+
+        /**
+         * This method is used to get the ith element from the List
+         * @param i This is the index of the element
+         * @return E This returns the ith element from the List
+         */
         E get(int i);
+
+        /**
+         * This method is used to sort the elements of the List in ascending order
+         * @return Nothing
+         */
         void sort();
+
+        /**
+         * This method is used to print the details of the List
+         * @return Nothing
+         */
         void printAll();
+
+        /**
+         * This method is used to get the size of the List
+         * @return int This returns the size of the List
+         */
         int getSize();
     }
 
-    public static class DA <E extends Comparable<E>> implements List<E>, Comparator {
-        private int size = 0;
-        public int initialSize = 1;
-        private E[] array;
-        public DA (int c) {
-            if(c <= 0)
-                throw new IndexOutOfBoundsException("Initial size cannot be less than or equal to Zero");
-            array = (E[]) new Comparable[c];
-            initialSize = c;
-        }
+    /**
+     * This is the implementation of List interface using Dynamic Array approach
+     * @param <E> This is the generic type of the elements of the List. E should always inherit from Comparable Class
+     */
+    public static class DynamicArray <E extends Comparable<E>> implements List<E>{
+        private int size = 0;   // Store the size of the array
+        public int initialSize = 100; // Initial size of the array
+        private E[] array;  // The array that represent the List
 
-        public DA () {
+
+        /**
+         * This is the constructor of the Class if the user didn't provide a preferred size
+         */
+        public DynamicArray () {
             array = (E[]) new Comparable[initialSize];
         }
 
+        /**
+         * This is the constructor of the Class in order to have a flexible size according to the user
+         * @param c This is the initialSize which is provided from the user
+         * @throws IndexOutOfBoundsException This exception happens when the given size is less than or equal to zero
+         */
+        public DynamicArray (int c) {
+            if(c <= 0)
+                throw new IndexOutOfBoundsException("Initial size cannot be less than or equal to Zero");
 
+            array = (E[]) new Comparable[c];    // Safe Down Casting from array of Comparable Objects to array of E type Objects
+            initialSize = c;    // Set the initial size of the array to c
+        }
+
+
+        /**
+         * This method is used to check correctness of the given index from the user
+         * @param i a number to indicate the number of elements in the List
+         * @param n a number to indicate the size of the List
+         * @throws IndexOutOfBoundsException
+         */
+        private void checkIndex(int i, int n) throws IndexOutOfBoundsException {
+            if(i < 0 || i >= n)
+                throw new IndexOutOfBoundsException("Index is not correct");
+        }
+
+        /**
+         * {@inheritDoc}
+         * @return boolean This returns true if the List is empty otherwise False
+         */
         @Override
         public boolean isEmpty() {
             if(size == 0)
@@ -46,231 +157,342 @@ public class Main {
 
             return false;
         }
-        //add function to move, expand and copy
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the position to put the element e
+         * @param e This is the element we need to add
+         */
         @Override
         public void add(int i, E e) {
-            if(i > size && i != 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            else {
-                if(size == initialSize) {
-//                    System.out.println("Double");
-                    //copy, expand, move
-                    E[] array2 = (E[]) new Comparable[initialSize];
-                    for (int x = 0; x < initialSize; x++) {
-                        array2[x] = array[x];
-                    }
 
-                    int originalSize = initialSize;
-                    initialSize *= 2;
-                    array = (E[]) new Comparable[initialSize];
+            checkIndex(i,size+1);
 
-                    for (int x = 0; x < originalSize; x++) {
-                        array[x] = array2[x];
-                    }
+            // Check if the size equals to the initial size
+            if(size == initialSize) {
+                E[] tmp = (E[]) new Comparable[initialSize]; // Create a tmp array from the same size
+
+                // Copy the elements of the first array to the tmp array
+                for (int x = 0; x < initialSize; x++) {
+                    tmp[x] = array[x];
                 }
-                //shift
-                E[] tmp = (E[]) new Comparable[2];
-//                E[] tmp2 = (E[]) new Comparable[1];
-                tmp[0] = array[i];
-                for(int x = i; x < size; x++) {
-                    tmp[1] = array[x+1];
-                    array[x+1] = tmp[0];
-                    tmp[0] = tmp[1];
 
+                int originalSize = initialSize;
+                initialSize *= 2;   // Double the initialSize variable
+                array = (E[]) new Comparable[initialSize];  // Create a new array with the doubled number of elements
+                // Copy back the elements from the tmp array to the new array
+                for (int x = 0; x < originalSize; x++) {
+                    array[x] = tmp[x];
                 }
-                array[i] = e;
-                size++;
             }
+
+            E[] tmp = (E[]) new Comparable[2];  // two tmp variables is made to shift the elements of the array
+            // Shift right the array to add the new element in the ith position
+            tmp[0] = array[i];
+            for(int x = i; x < size; x++) {
+                tmp[1] = array[x+1];
+                array[x+1] = tmp[0];
+                tmp[0] = tmp[1];
+            }
+            array[i] = e;   // Add the element in the ith position
+            size++; // Increase the size variable of the array
+
         }
 
+        /**
+         * {@inheritDoc}
+         * @param e This is the element we need to add in the first of the List
+         */
         @Override
         public void addFirst(E e) {
             add(0,e);
         }
 
+        /**
+         * {@inheritDoc}
+         * @param e This is the element we need to add
+         */
         @Override
         public void addLast(E e) {
             add(size,e);
         }
 
+        /**
+         * {@inheritDoc}
+         * @param e This is the element we need to delete
+         */
         @Override
         public void delete(E e) {
-            boolean flag = false;
+            boolean found = false;   // Create a flag to indicate if we found the element or not
+
+            //iterate over the array
             for(int x = 0; x < size-1; x++) {
-//                System.out.printf("%d -> %d\n", array[x],e);
-                if(array[x] == e) flag = true;
-                if(flag) {
-                    array[x] = array[x+1];
-                }
+                if(array[x] == e) found = true; // If we found the element we assert the flag
+                if(found) array[x] = array[x+1];    // If the flag is asserted we begin to shift left the array elements (overwrite on the needed element)
             }
-            if(flag || array[size-1] == e)
+            // Empty the last element of the array if we found the element or if it was the last element in the array
+            if(found || array[size-1] == e)
                 array[size-1] = null;
+            // If we didn't find the element we throw an NoSuchElementException
             else
                 throw new NoSuchElementException();
-            size--;
+            size--; //decrease the size variable of the array
 
         }
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the index of the element we need to delete
+         */
         @Override
         public void delete(int i) {
-            if(i+1 > size) {
-                throw new IndexOutOfBoundsException();
-            }
-            else {
-                delete(array[i]);
-            }
+            checkIndex(i, size);
+            delete(array[i]);
+
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void deleteFirst() {
             delete(0);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void deleteLast() {
             delete(size-1);
         }
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the index of the element
+         * @param e This is the element we need to set its value
+         */
         @Override
         public void set(int i, E e) {
-            if(i+1 > size )
-                throw new IndexOutOfBoundsException();
-            else
-                array[i] = e;
+            checkIndex(i,size);
+            array[i] = e;
 
         }
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the index of the element
+         * @return E This returns the ith element from the List
+         */
         @Override
         public E get(int i) {
-            if(i+1 > size)
-                throw new IndexOutOfBoundsException();
-            else
-                return array[i];
+            checkIndex(i,size);
+            return array[i];
         }
 
+        /**
+         * This method is swap two elements of the array
+         * @param i This is the index of the first element in the array
+         * @param x This is the index of the second element in the array
+         */
         void swap(int i, int x) {
-            E tmp = array[i];
+            E tmp = array[i];   // Tmp variable from E type to store the intermediate stage of swapping
             array[i] = array[x];
             array[x] = tmp;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void sort() {
-//            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
+            // The first loop is used to iterate over the places of the array to choose the specific element for that position
             for(int i = 0; i < size-1; i++)
             {
-                int index = i;
+                int index = i;  // This will store the index of the target element to swap which will be the smallest element in the rest subset
                 for(int x = i+1; x < size; x++)
                 {
-                    //get the smallest element than it
-                    if(array[x].compareTo(array[index]) <= -1) {
-//                        System.out.println("Do");
+                    // Get the smallest element in the subset
+                    if(array[x].compareTo(array[index]) <= -1)
                         index = x;
-                    }
                 }
                 swap(index,i);
             }
 
         }
 
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void printAll() {
 
             System.out.printf("Size = %d, ", size);
             System.out.printf("Initial Size = %d\n", initialSize);
             for(int x = 0; x < size; x++)
-                System.out.printf("index: %s -- value: %s \n", String.valueOf(x),array[x].toString());
-            System.out.printf("-------------------------\n");
+                System.out.printf("Index: %s -- Value: %s \n", String.valueOf(x),array[x].toString());
+            System.out.printf("--------------------------------------------------\n");
 
 
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @return int This returns the size of the List
+         */
         @Override
         public int getSize() {
             return size;
         }
 
-
-        @Override
-        public int compare(Object o1, Object o2) {
-            E e1 = (E) o1;
-            E e2 = (E) o2;
-            return e1.compareTo(e2);
-        }
     }
 
-    public static class DLL_Node <E extends Comparable<E>> implements Comparable<DLL_Node> {
 
-        private DLL_Node<E> next;
-        private DLL_Node<E> prev;
-        private E value;
+    /**
+     * This is the Class of the Nodes of the Doubly Linked List.
+     * Inherit and override from Comparable Class to have the feature of comparing between nodes depending on the value
+     * @param <E> This is the generic type of the elements of the List. E should always inherit from Comparable Class
+     */
+    public static class DoublyLinkedList_Node <E extends Comparable<E>> implements Comparable<DoublyLinkedList_Node> {
 
-        DLL_Node (E value) {
+        private DoublyLinkedList_Node<E> next;  // Store the address of the next node
+        private DoublyLinkedList_Node<E> prev;  // Store the address of the previous node
+        private E value;    // Store the value of the Node
+
+        /**
+         * This is the basic constructor of the Class which will fill the value with null
+         */
+        DoublyLinkedList_Node () {
+            this(null);
+        }
+
+        /**
+         * This is the constructor of the Class to store a specific value for the node
+         * @param value This is the given value for the node
+         */
+        DoublyLinkedList_Node (E value) {
             this.value = value;
             this.next = null;
             this.prev = null;
         }
-        DLL_Node () {
-            this(null);
-        }
 
-        public void setNext(DLL_Node<E> next) {
+        /**
+         * Setters and Getters
+         */
+
+        /**
+         * This is used to set the next variable
+         * @param next This is the address of the next node
+         */
+        public void setNext(DoublyLinkedList_Node<E> next) {
             this.next = next;
         }
 
-        public void setPrev(DLL_Node<E> prev) {
+        /**
+         * This is used to set the previous variable
+         * @param prev This is the address of the prev node
+         */
+        public void setPrev(DoublyLinkedList_Node<E> prev) {
             this.prev = prev;
         }
 
+
+        /**
+         * This is used to set the value variable
+         * @param value This is the value of the node
+         */
         public void setValue(E value) {
             this.value = value;
         }
 
-        public DLL_Node<E> getNext() {
+
+        /**
+         * This is used to get the address of the next Node
+         * @return DoublyLinkedList_Node the address of the next Node
+         */
+        public DoublyLinkedList_Node<E> getNext() {
             return next;
         }
 
-        public DLL_Node<E> getPrev() {
+        /**
+         * This is used to get the address of the previous Node
+         * @return DoublyLinkedList_Node the address of the previous Node
+         */
+        public DoublyLinkedList_Node<E> getPrev() {
             return prev;
         }
 
+        /**
+         * This is used to get the value of the Node
+         * @return E the value of the Node
+         */
         public E getValue() {
             return value;
         }
 
 
+        /**
+         * This is used to compare between two nodes according to their value variable
+         * @param o This is the second node
+         * @return int the same values of compareTo method from Comparable Class
+         */
         @Override
-        public int compareTo(DLL_Node o) {
+        public int compareTo(DoublyLinkedList_Node o) {
             return this.value.compareTo((E) o.value);
         }
     }
 
-    //-----------------------------------------------------------------------
-    public static class DLL<E extends Comparable<E>> implements List<E>, Comparator {
+    /**
+     * This is the implementation of List interface using Doubly Linked List approach
+     * @param <E> This is the generic type of the elements of the List. E should always inherit from Comparable Class
+     */
+    public static class DoublyLinkedList<E extends Comparable<E>> implements List<E> {
 
-        private int size = 0;
-        private DLL_Node<E> head = new DLL_Node<>();
-        private DLL_Node<E> tail = new DLL_Node<>();
+        private int size = 0;   // Store the size of the array
+        private DoublyLinkedList_Node<E> head;  // Store the address of the head of the Linked List
+        private DoublyLinkedList_Node<E> tail;  // Store the address of the tail of the Linked List
 
-        DLL(){
-            head.setPrev(null);
-            head.setNext(null);
-            tail.setPrev(null);
-            tail.setNext(null);
+        /**
+         * This is the constructor of the Class to initialize the Linked List with zero number of elements
+         */
+        DoublyLinkedList(){
+            head = new DoublyLinkedList_Node<>();
+            tail = new DoublyLinkedList_Node<>();
         }
 
-        public DLL_Node<E> getHead() {
+        /**
+         * Getter for the head of the Linked List
+         * @return E the address of the head of the Linked List
+         */
+        public DoublyLinkedList_Node<E> getHead() {
             return head;
         }
 
-        public DLL_Node<E> getTail() {
+        /**
+         * Getter for the tail of the Linked List
+         * @return E the address of the tail of the Linked List
+         */
+        public DoublyLinkedList_Node<E> getTail() {
             return tail;
         }
 
-        //add check index method for exceptions
+        /**
+         * This method is used to check correctness of the given index from the user
+         * @param i a number to indicate the number of elements in the List
+         * @param n a number to indicate the size of the List
+         * @throws IndexOutOfBoundsException
+         */
+        private void checkIndex(int i, int n) throws IndexOutOfBoundsException {
+            if(i < 0 || i >= n)
+                throw new IndexOutOfBoundsException("Index is not correct");
+        }
 
+        /**
+         * {@inheritDoc}
+         * @return boolean true if the Linked List is empty, otherwise false
+         */
         @Override
         public boolean isEmpty() {
             if(size == 0)
@@ -279,82 +501,81 @@ public class Main {
             return false;
         }
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the position to put the element e
+         * @param o This is the element to be added
+         */
         @Override
         public void add(int i, E o) {
 
-            //to initialize the list
-            if(i+1 > size && (i != 0)) {
-                throw new IndexOutOfBoundsException();
-//                addFirst(o);
+            checkIndex(i,size+1);
+            // If the index equals to 0 add in the first of the List
+            if (i == 0)
+                addFirst(o);
+            // If the index equals to the size add in the last of the List
+            else if (i == size)
+                addLast(o);
+            // If in the middle
+            else {
+                DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Create a new temporary target node will point on the needed position
+                target.setNext(head.getNext()); // Points where the head node points to (the start of the list)
+
+                // Loop over the List until we find the element
+                for (int x = 0; x != i; x++)
+                    target.setNext((target.getNext()).getNext());   // Point to the next node in the list
+
+                DoublyLinkedList_Node<E> leftTmp = new DoublyLinkedList_Node<>();   // Create a new temporary left node to store the previous node of the target
+
+                //left -> prev node
+                //target.prev -> new
+                //new.next -> target
+                //left.next -> new
+                //new.prev -> left
+                leftTmp.setNext((target.getNext()).getPrev());  // Left points to the previous node of the target
+                (target.getNext()).setPrev(new DoublyLinkedList_Node<>(o)); // Set the previous node of the target node to the new inserted node
+                ((target.getNext()).getPrev()).setNext(target.getNext());   // Set the next node of the new inserted node to the target
+                (leftTmp.getNext()).setNext((target.getNext()).getPrev());  // Set the next of the Left node to the previous of the target
+                ((leftTmp.getNext()).getNext()).setPrev(leftTmp.getNext()); // Set the previous of the new inserted node to the left node
+                size++;
             }
-            //if the list has greater number than this index
-            //else if(i+1 <= size) {
-             else {
-                if (i == 0)
-                    addFirst(o);
-                else if (i == size - 1)
-                    addLast(o);
-                else {
-                    DLL_Node<E> target = new DLL_Node<>();
-                    target.setNext(head.getNext());
-
-                    for (int x = 0; (target.getNext() != null && x != i); x++)
-                        target.setNext((target.getNext()).getNext());
-
-                    DLL_Node<E> leftTmp = new DLL_Node<>();
-
-                    //(__.getNext() is our node)
-                    //add tmp point to the previous of our target
-                    //left -> prev node
-                    //target.prev -> new
-                    //new.next -> target
-                    //left.next -> new
-                    //new.prev -> left
-                    leftTmp.setNext((target.getNext()).getPrev());
-                    (target.getNext()).setPrev(new DLL_Node<>(o));
-                    ((target.getNext()).getPrev()).setNext(target.getNext());
-                    (leftTmp.getNext()).setNext((target.getNext()).getPrev());
-                    ((leftTmp.getNext()).getNext()).setPrev(leftTmp.getNext());
-                    size++;
-
-                }
-
-            }
-
-
 
         }
 
+        /**
+         * {@inheritDoc}
+         * @param o This is the element to be added to the first
+         */
         @Override
         public void addFirst(E o) {
+            // If the size equals zero, then the head node and the tail node will point to the new node
             if (size == 0) {
-                head.setNext(new DLL_Node<>(o));
+                head.setNext(new DoublyLinkedList_Node<>(o));
                 tail.setNext(head.getNext());
             }
+            // Else, just insert the node in the first place
             else {
-                DLL_Node<E> tmp = new DLL_Node<>();
-                tmp.setNext(head.getNext());
-                head.setNext(new DLL_Node<>(o));
-                (head.getNext()).setNext(tmp.getNext());
-                (tmp.getNext()).setPrev(head.getNext());
-
+                DoublyLinkedList_Node<E> tmp = new DoublyLinkedList_Node<>();   // Create a temporary node to store the head's node
+                tmp.setNext(head.getNext());                                    // Store in the tmp the starting of the Linked List
+                head.setNext(new DoublyLinkedList_Node<>(o));                   // Make the head node point to the new inserted node
+                (head.getNext()).setNext(tmp.getNext());                        // Make the new inserted node point to the node which pointed by the tmp
+                (tmp.getNext()).setPrev(head.getNext());                        // Make previous of the node which is pointed by the tmp
             }
-            size++;
-            System.out.println("DONE");
-
+            size++; // Increase the size variable of the List
         }
         @Override
         public void addLast(E o) {
+            // If the size equals zero, then the head node and the tail node will point to the new node
             if(size == 0) {
-                head.setNext(new DLL_Node<>(o));
+                head.setNext(new DoublyLinkedList_Node<>(o));
                 tail.setNext(head.getNext());
             }
             else {
-                DLL_Node<E> tmp = new DLL_Node<>();
-                tmp.setNext(tail.getNext());
-                tail.setNext(new DLL_Node<>(o));
-                (tail.getNext()).setPrev(tmp.getNext());
-                (tmp.getNext()).setNext(tail.getNext());
+                DoublyLinkedList_Node<E> tmp = new DoublyLinkedList_Node<>();   // Create a temporary node to store the tail's node
+                tmp.setNext(tail.getNext());                                    // Store in the tmp the end of the Linked List
+                tail.setNext(new DoublyLinkedList_Node<>(o));                   // Make the tail node point to the new inserted node
+                (tail.getNext()).setPrev(tmp.getNext());                        // Make the new inserted node point to the node which pointed by the tmp
+                (tmp.getNext()).setNext(tail.getNext());                        // Make previous of the node which is pointed by the tmp
             }
             size++;
 
@@ -362,47 +583,55 @@ public class Main {
 
         @Override
         public void delete(E o) {
-            System.out.println("Print object");
-            //if found it
+            // Check if there are more than one element
             if(size > 1) {
-                DLL_Node<E> target = new DLL_Node<>();
-                target.setNext(head.getNext());
-                int x;
+                DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Create a target node will point to the needed node
+                target.setNext(head.getNext()); // Make the target points to the start of the List
+                int x; // Variable will be used to iterate over the List and store the position of that node
+                // Loop until we found the element or we reached to the end
                 for (x = 0; (target.getNext() != null && !(((target.getNext()).getValue()).equals(o))); x++)
                     target.setNext((target.getNext()).getNext());
-
+                //if we reached to the end and we didn't find the element, then throw an NoSuchElementException
                 if(x == size || !(target.getNext().getValue()).equals(o))
                     throw new NoSuchElementException();
 
+                // If the target element was the first element of the List, deleteFirst()
                 if(x == 0)
                     deleteFirst();
+                // If the target element was the last element of the List, deleteLast()
                 else if(x == size - 1)
                     deleteLast();
+                // If the target element was in the middle
                 else {
-                    DLL_Node<E> leftTmp = new DLL_Node<>();
-                    DLL_Node<E> rightTmp = new DLL_Node<>();
+                    DoublyLinkedList_Node<E> leftTmp = new DoublyLinkedList_Node<>();   // Node to point the previous node of the target
+                    DoublyLinkedList_Node<E> rightTmp = new DoublyLinkedList_Node<>();  // Node to point the next node of the target
 
-                    leftTmp.setNext((target.getNext()).getPrev());
-                    rightTmp.setNext((target.getNext()).getNext());
+                    leftTmp.setNext((target.getNext()).getPrev());  // Point the previous node of the target
+                    rightTmp.setNext((target.getNext()).getNext()); // Point the previous node of the target
 
-                    (leftTmp.getNext()).setNext(rightTmp.getNext());
-                    (rightTmp.getNext()).setPrev(leftTmp.getNext());
+                    (leftTmp.getNext()).setNext(rightTmp.getNext());    // Make the previous point to the next
+                    (rightTmp.getNext()).setPrev(leftTmp.getNext());    // and the next point to the previous
 
+                    // Detach the target node
                     (target.getNext()).setPrev(null);
                     (target.getNext()).setNext(null);
-                    size--;
+                    size--; // Decrement the size variable of the List
                 }
             }
+
+            // If the size equals one, then delete and make head and tail not pointing to anything
             else if(size == 1) {
+                //If the element exist and it is only element in the List
                 if(head.getNext().getValue().equals(o)) {
                     head.setNext(null);
                     tail.setNext(null);
                     size--;
                 }
+                // If the element doesn't exist
                 else
                     throw new NoSuchElementException();
             }
-            //size == 0
+            // If the size equals to zero
             else
                 throw new IndexOutOfBoundsException();
 
@@ -410,187 +639,211 @@ public class Main {
 
         @Override
         public void delete(int i) {
-            //if the index exist
-            //generic case: we can optimize it
-            // if i is equal to the size to be the tail
-            // or closer to the end to work with the tail
+            checkIndex(i, size);
 
-            if(size >= i+1) {
-                if(i == 0)
-                    deleteFirst();
-                else if(i == size -1)
-                    deleteLast();
-                else {
-                    if (size == 1) {
-                        head.setNext(null);
-                        tail.setNext(null);
-                    }
-                    else {
-                        DLL_Node<E> target = new DLL_Node<>();
-                        target.setNext(head.getNext());
-
-                        for (int x = 0; (target.getNext() != null && x != i); x++)
-                            target.setNext((target.getNext()).getNext());
-
-
-                        DLL_Node<E> leftTmp = new DLL_Node<>();
-                        DLL_Node<E> rightTmp = new DLL_Node<>();
-
-                        leftTmp.setNext((target.getNext()).getPrev());
-                        rightTmp.setNext((target.getNext()).getNext());
-
-                        (leftTmp.getNext()).setNext(rightTmp.getNext());
-                        (rightTmp.getNext()).setPrev(leftTmp.getNext());
-
-                        (target.getNext()).setPrev(null);
-                        (target.getNext()).setNext(null);
-                    }
-                    size--;
+            // If we need to delete the first element
+            if(i == 0)
+                deleteFirst();
+            // If we need to delete the last element
+            else if(i == size -1)
+                deleteLast();
+            // If the element was in the middle
+            else {
+                // If the size equals one
+                if (size == 1) {
+                    // Detach the node
+                    head.setNext(null);
+                    tail.setNext(null);
                 }
+                else {
+                    DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Node to point the target node we need to delete (Will be used to loop over the list)
+                    target.setNext(head.getNext()); // Point to the start of the List
+
+                    // Loop over the List until you find it
+                    for (int x = 0; x != i; x++)
+                        target.setNext((target.getNext()).getNext());   // Point to the next node
+
+
+                    DoublyLinkedList_Node<E> leftTmp = new DoublyLinkedList_Node<>();   // Node to point the previous node of the target
+                    DoublyLinkedList_Node<E> rightTmp = new DoublyLinkedList_Node<>();  // Node to point the next node of the target
+
+                    leftTmp.setNext((target.getNext()).getPrev());  // Point the previous node of the target
+                    rightTmp.setNext((target.getNext()).getNext()); // Point the previous node of the target
+
+                    (leftTmp.getNext()).setNext(rightTmp.getNext());    // Make the previous point to the next
+                    (rightTmp.getNext()).setPrev(leftTmp.getNext());    // and the next point to the previous
+
+                    // Detach the target node
+                    (target.getNext()).setPrev(null);
+                    (target.getNext()).setNext(null);
+                }
+                size--; // Decrement the size variable of the List
             }
-            else
-                throw new IndexOutOfBoundsException();
 
         }
 
         @Override
         public void deleteFirst() {
-            //if te list is not empty
+            // If the list has more than one element
             if(size > 1) {
-                head.setNext((head.getNext()).getNext());
-                ((head.getNext()).getPrev()).setNext(null);
-                (head.getNext()).setPrev(null);
-
-//                delete(0);
+                head.setNext((head.getNext()).getNext());   // Make the head point to the node next to the start
+                ((head.getNext()).getPrev()).setNext(null); // Make the next of the first one equal to null
+                (head.getNext()).setPrev(null);             // Make the prev of the first one equal to null
             }
+            // If the List has at least one node
             else if(size == 1) {
+                // Detach the only node
                 head.setNext(null);
                 tail.setNext(null);
-
             }
+            // If the List is empty
             else
                 throw new IndexOutOfBoundsException();
-            size--;
+            size--; // Decrement the size variable
         }
 
         @Override
         public void deleteLast() {
-            //if the list is not empty
+            // If the list has more than one element
             if(size > 1) {
-                tail.setNext((tail.getNext()).getPrev());
-                ((tail.getNext()).getNext()).setPrev(null);
-                (tail.getNext()).setNext(null);
-//                delete(size-1);
+                tail.setNext((tail.getNext()).getPrev());   // Make the tail point to the previous node to the end
+                ((tail.getNext()).getNext()).setPrev(null); // Make the prev of the last one equal to null
+                (tail.getNext()).setNext(null);             // Make the next of the last one equal to null
             }
+            // If the List has at least one node
             else if(size == 1) {
+                // Detach the only node
                 head.setNext(null);
                 tail.setNext(null);
             }
 
+            // If the List is empty
             else
                 throw new IndexOutOfBoundsException();
-            size--;
+            size--; // Decrement the size variable
 
         }
 
+        /**
+         * {@inheritDoc}
+         * @param i This is the index of the element
+         * @param o This is the new value of the element
+         */
         @Override
         public void set(int i, E o) {
-            //if the element exists
-            if (size >= i + 1) {
-                DLL_Node<E> target = new DLL_Node<>();
-                target.setNext(head.getNext());
 
-                int x;
-                for (x = 0; (target.getNext() != null && x != i); x++)
-                    target.setNext((target.getNext()).getNext());
+            checkIndex(i,size);
 
-                (target.getNext()).setValue(o);
-            }
+            DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Node to point to the target node (It is used to iterate over the List)
+            target.setNext(head.getNext()); // Point to the beginning of the List
 
-            else
-                throw new IndexOutOfBoundsException();
+            // Loop over the List
+            for (int x = 0; x != i; x++)
+                target.setNext((target.getNext()).getNext());
+
+            (target.getNext()).setValue(o); // Change the value of the target node
 
         }
+
+        /**
+         * {@inheritDoc}
+         * @param i This is the index of the element
+         * @return E The ith element
+         */
         @Override
         public E get(int i) {
-            //if the element exists
-            if (size >= i + 1) {
-                DLL_Node<E> target = new DLL_Node<>();
-                target.setNext(head.getNext());
+            checkIndex(i,size);
 
-                for (int x = 0; (target.getNext() != null && x != i); x++)
-                    target.setNext((target.getNext()).getNext());
+            DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Node to point to the target node (It is used to iterate over the List)
+            target.setNext(head.getNext()); // Point to the beginning of the List
 
-                return (target.getNext()).getValue();
-            }
+            // Loop over the List
+            for (int x = 0; x != i; x++)
+                target.setNext((target.getNext()).getNext());
 
-            else
-                throw new IndexOutOfBoundsException();
+            // Return the needed element
+            return (target.getNext()).getValue();
 
         }
 
-        void swap(DLL_Node<E> i, DLL_Node<E> x) {
-//            System.out.printf("it1-> %d , it0-> %d\n", i.getNext().getValue(), x.getNext().getValue());
+        /**
+         * This method is used to swap two elements in the List
+         * @param i the index of the first element
+         * @param x the index of the second element
+         */
+        void swap(DoublyLinkedList_Node<E> i, DoublyLinkedList_Node<E> x) {
             E tmp = (i.getNext()).getValue();
             (i.getNext()).setValue((x.getNext()).getValue());
             (x.getNext()).setValue(tmp);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void sort() {
-//            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
-            DLL_Node<E> it0 = new DLL_Node<>();
-            it0.setNext(head.getNext());
-            for(int i = 0; it0.getNext().getNext() != null; i++)
+            DoublyLinkedList_Node<E> it0 = new DoublyLinkedList_Node<>(); // Node to iterate over the List
+            it0.setNext(head.getNext());    // Points to the start of the List
+
+            // Iterate on the List
+            while(it0.getNext().getNext() != null)
             {
-                DLL_Node<E> it1 = new DLL_Node<>();
-                it1.setNext((it0.getNext()).getNext());
-                DLL_Node<E> target = new DLL_Node<>();
-                target.setNext(it0.getNext());
+                DoublyLinkedList_Node<E> it1 = new DoublyLinkedList_Node<>();   // Iterate on the unsorted subset
+                it1.setNext((it0.getNext()).getNext()); // Points to the start of the subset
 
-                for (int x = 0; it1.getNext() != null; x++) {
+                DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // This will point to the minimum node
+                target.setNext(it0.getNext());  // Points to the start of the subset
 
-
-                    if((it1.getNext()).compareTo(target.getNext()) <= -1) {
-
+                // Iterate on the subset
+                while(it1.getNext() != null) {
+                    // get the minimum node
+                    if((it1.getNext()).compareTo(target.getNext()) <= -1)
                         target.setNext(it1.getNext());
-                    }
 
-                    it1.setNext((it1.getNext()).getNext());
+                    it1.setNext((it1.getNext()).getNext()); // Point to the next node
 
                 }
 
-                swap(it0,target);
-                it0.setNext((it0.getNext()).getNext());
+                swap(it0,target);   // Swap the minimum and the pivot
+                it0.setNext((it0.getNext()).getNext()); // Point to the next node
             }
 
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void printAll() {
             System.out.printf("Size: %d\n",size);
-            if(size > 0) {
-                DLL_Node<E> target = new DLL_Node<>();
+            if(size == 1)
+                System.out.printf("index: %s -> %s -- value: %s -- next: %s -- prev: %s\n", String.valueOf(0),head.getNext().toString(),(head.getNext()).getValue().toString(),null,null);
+            if(size > 1) {
+                DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();
                 target.setNext(head.getNext());
-                for (int x = 0; target.getNext() != null; x++) {
-                    System.out.printf("index: %s -> %s -- value: %s -- next: %s -- prev: %s\n", String.valueOf(x),target.getNext().toString(),(target.getNext()).getValue().toString(),(target.getNext()).getNext().toString(),(target.getNext()).getPrev().toString());
+                System.out.printf("index: %s -> %s -- value: %s -- next: %s -- prev: %d\n", String.valueOf(0), target.getNext().toString(), (target.getNext()).getValue().toString(), (target.getNext()).getNext().toString(), null);
+                target.setNext(target.getNext().getNext());
+                for (int x = 1; target.getNext() != null; x++) {
+                    if(target.getNext().getNext() == null) {
+                        System.out.printf("index: %s -> %s -- value: %s -- next: %d -- prev: %s\n", String.valueOf(x), target.getNext().toString(), (target.getNext()).getValue().toString(), null, (target.getNext()).getPrev().toString());
+                        break;
+                    }
+                    else
+                        System.out.printf("index: %s -> %s -- value: %s -- next: %s -- prev: %s\n", String.valueOf(x),target.getNext().toString(),(target.getNext()).getValue().toString(),(target.getNext()).getNext().toString(),(target.getNext()).getPrev().toString());
                     target.setNext((target.getNext()).getNext());
-
                 }
             }
         }
 
+        /**
+         * {@inheritDoc}
+         * @return int the size of the List
+         */
         @Override
         public int getSize() {
             return size;
         }
 
-        @Override
-        public int compare(Object o1, Object o2) {
-            E e1 = (E) o1;
-            E e2 = (E) o2;
-            return e1.compareTo(e2);
-        }
     }
 
 
@@ -723,6 +976,7 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
+//        /*
         Scanner input = new Scanner(System.in);
         int N = Integer.parseInt(input.nextLine());
 
@@ -730,7 +984,8 @@ public class Main {
             String tournamentName = input.nextLine();
             System.out.println(tournamentName);
             int T = Integer.parseInt(input.nextLine());
-            List<Team> teams = new DLL<>();
+            List<Team> teams = new DynamicArray<>();
+//            List<Team> teams = new DoublyLinkedList<>();
 
             for (int i = 0; i < T; i++) {
                 String teamName = input.nextLine();
@@ -802,10 +1057,10 @@ public class Main {
 //            System.out.println("Finish teams------------");
             System.out.println("");
         }
-
+//        */
     /*
-        List<Integer> li = new DLL<>();
-//        List<Integer> li = new DA<>();
+//        List<Integer> li = new DoublyLinkedList<>();
+        List<Integer> li = new DynamicArray<>();
 
         //try add from first using the index and last and also delete
 
@@ -862,6 +1117,7 @@ public class Main {
         li.deleteFirst();
         li.deleteFirst();
         li.deleteFirst();
+        li.printAll();
 
         for(int i = 6; i >= 0; i--) {
             li.addLast(i);

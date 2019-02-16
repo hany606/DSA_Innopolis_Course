@@ -17,25 +17,28 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="303">
+              <caret line="988" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1134" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-                <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-                <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-                <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-                <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-                <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-                <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-                <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+                <element signature="class#List#0;class#Main#0" expanded="false" />
+                <element signature="e#3700#3701#0" expanded="true" />
+                <element signature="e#3765#3766#0" expanded="true" />
+                <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+                <element signature="e#7233#7234#0" expanded="true" />
+                <element signature="e#7268#7269#0" expanded="true" />
+                <element signature="e#8647#8648#0" expanded="true" />
+                <element signature="e#8680#8681#0" expanded="true" />
+                <element signature="e#8783#8784#0" expanded="true" />
+                <element signature="e#8821#8822#0" expanded="true" />
+                <element signature="e#11196#11197#0" expanded="true" />
+                <element signature="e#11231#11232#0" expanded="true" />
+                <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+                <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+                <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+                <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+                <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+                <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
               </folding>
             </state>
           </provider>
@@ -48,7 +51,11 @@
       <find>objec</find>
       <find>inva</find>
       <find>sys</find>
+      <find>DLL</find>
     </findStrings>
+    <replaceStrings>
+      <replace>DoublyLinkedList</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -66,8 +73,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="506" />
-    <option name="y" value="32" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="857" />
     <option name="height" value="735" />
   </component>
@@ -169,6 +176,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -179,11 +187,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34188035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34188035" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.02193646" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -195,7 +204,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -242,21 +250,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -267,21 +278,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -292,21 +306,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -317,21 +334,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -342,21 +362,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -367,21 +390,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -392,21 +418,24 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
@@ -420,25 +449,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="303">
+          <caret line="988" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1134" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="class#DLL_Node#0;class#Main#0" expanded="false" />
-            <element signature="method#isEmpty#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#add#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#addLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#delete#1;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteFirst#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#deleteLast#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#set#0;class#DLL#0;class#Main#0" expanded="false" />
-            <element signature="method#get#0;class#DLL#0;class#Main#0" expanded="false" />
-            <marker date="1550338933949" expanded="true" signature="8806:8916" ph="{...}" />
-            <marker date="1550338933949" expanded="true" signature="21274:21457" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="21887:22769" ph="..." />
-            <marker date="1550338933949" expanded="false" signature="24313:25944" ph="..." />
-            <marker date="1550338933949" expanded="true" signature="24564:24733" ph="..." />
+            <element signature="class#List#0;class#Main#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="true" />
+            <element signature="e#3765#3766#0" expanded="true" />
+            <element signature="method#add#0;class#DynamicArray#0;class#Main#0" expanded="false" />
+            <element signature="e#7233#7234#0" expanded="true" />
+            <element signature="e#7268#7269#0" expanded="true" />
+            <element signature="e#8647#8648#0" expanded="true" />
+            <element signature="e#8680#8681#0" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8821#8822#0" expanded="true" />
+            <element signature="e#11196#11197#0" expanded="true" />
+            <element signature="e#11231#11232#0" expanded="true" />
+            <element signature="class#DoublyLinkedList_Node#0;class#Main#0" expanded="false" />
+            <marker date="1550356165991" expanded="true" signature="18691:18814" ph="{...}" />
+            <marker date="1550356165991" expanded="true" signature="36388:36571" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="37001:37883" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39439:41114" ph="..." />
+            <marker date="1550356165991" expanded="true" signature="39713:39882" ph="..." />
           </folding>
         </state>
       </provider>
