@@ -20,6 +20,7 @@ public class Main {
         E get(int i);
         void sort();
         void printAll();
+        int getSize();
     }
 
     public static class DA <E extends Comparable<E>> implements List<E>, Comparator {
@@ -54,7 +55,7 @@ public class Main {
             }
             else {
                 if(size == initialSize) {
-                    System.out.println("Double");
+//                    System.out.println("Double");
                     //copy, expand, move
                     E[] array2 = (E[]) new Comparable[initialSize];
                     for (int x = 0; x < initialSize; x++) {
@@ -98,7 +99,7 @@ public class Main {
         public void delete(E e) {
             boolean flag = false;
             for(int x = 0; x < size-1; x++) {
-                System.out.printf("%d -> %d\n", array[x],e);
+//                System.out.printf("%d -> %d\n", array[x],e);
                 if(array[x] == e) flag = true;
                 if(flag) {
                     array[x] = array[x+1];
@@ -158,13 +159,14 @@ public class Main {
         @Override
         public void sort() {
 //            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
-            for(int i = 0; i < size; i++)
+            for(int i = 0; i < size-1; i++)
             {
                 int index = i;
-                for(int x = i; x < size; x++)
+                for(int x = i+1; x < size; x++)
                 {
                     //get the smallest element than it
-                    if(array[x].compareTo(array[index]) == -1) {
+                    if(array[x].compareTo(array[index]) == 1) {
+//                        System.out.println("Do");
                         index = x;
                     }
                 }
@@ -175,13 +177,19 @@ public class Main {
 
         @Override
         public void printAll() {
+
             System.out.printf("Size = %d, ", size);
             System.out.printf("Initial Size = %d\n", initialSize);
             for(int x = 0; x < size; x++)
-                System.out.printf("index: %d -- value: %d \n", x,array[x]);
+                System.out.printf("index: %s -- value: %s \n", String.valueOf(x),array[x].toString());
             System.out.printf("-------------------------\n");
 
 
+        }
+
+        @Override
+        public int getSize() {
+            return size;
         }
 
 
@@ -564,11 +572,16 @@ public class Main {
                 DLL_Node<E> target = new DLL_Node<>();
                 target.setNext(head.getNext());
                 for (int x = 0; target.getNext() != null; x++) {
-                    System.out.printf("index: %d -> %s -- value: %d -- next: %s -- prev: %s\n", x,target.getNext(),(target.getNext()).getValue(),(target.getNext()).getNext(),(target.getNext()).getPrev());
+                    System.out.printf("index: %s -> %s -- value: %s -- next: %s -- prev: %s\n", String.valueOf(x),target.getNext().toString(),(target.getNext()).getValue().toString(),(target.getNext()).getNext().toString(),(target.getNext()).getPrev().toString());
                     target.setNext((target.getNext()).getNext());
 
                 }
             }
+        }
+
+        @Override
+        public int getSize() {
+            return size;
         }
 
         @Override
@@ -670,7 +683,7 @@ public class Main {
             this.wins++;
         }
         public void addTie() {
-            this.wins++;
+            this.ties++;
         }
         public void addNumGames() {
             this.numGames++;
@@ -685,7 +698,25 @@ public class Main {
 
         @Override
         public int compareTo(Object o) {
-            return 0;
+            Team tmp = (Team) o;
+            if(this.getTotalPoints() > tmp.getTotalPoints()) return 1;
+            else if(this.getTotalPoints() < tmp.getTotalPoints()) return -1;
+            else {
+                if(this.getWins() > tmp.getWins()) return 1;
+                else if(this.getWins() < tmp.getWins()) return -1;
+                else {
+                    if(this.getGoalsDifference() > tmp.getGoalsDifference()) return 1;
+                    else if(this.getGoalsDifference() < tmp.getGoalsDifference()) return -1;
+                    else {
+//                        System.out.println("final");
+                        return (this.name.compareTo(tmp.getName()));
+                    }
+                }
+            }
+        }
+
+        public String toString() {
+            return String.format("%s %dp, %dg (%d-%d-%d), %dgd (%d-%d)",getName(),getTotalPoints(),getNumGames(),getWins(),getTies(),getLosses(),getGoalsDifference(),getGoalsScored(),getGoalsAgainst());
         }
 
     }
@@ -694,22 +725,24 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         Scanner input = new Scanner(System.in);
-        int N = input.nextInt();
+        int N = Integer.parseInt(input.nextLine());
 
         for(int t = 0; t < N; t++) {
-            System.out.println(input.next());
-            int T = input.nextInt();
+            String tournamentName = input.nextLine();
+            System.out.println(tournamentName);
+            int T = Integer.parseInt(input.nextLine());
             List<Team> teams = new DA<>(T+1);
 
             for (int i = 0; i < T; i++) {
-                String teamName = input.next();
+                String teamName = input.nextLine();
                 Team tmp = new Team(teamName, i+1);
                 teams.addLast(tmp);
             }
 
-            int G = input.nextInt();
-            for(int i = 0; i < G; i++) {
-                String s = input.next();
+            int G = Integer.parseInt(input.nextLine());
+            for(int g = 0; g < G; g++) {
+//                System.out.println("--------New--------");
+                String s = input.nextLine();
                 boolean flag = false, flag1 = false;
                 String teamName1 = "", teamName2 = "";
                 int teamGoals1 = 0, teamGoals2 = 0;
@@ -735,9 +768,40 @@ public class Main {
                         continue;
                     }
                 }
-                
+//                                System.out.printf("Team1: %s -> %d \t Team2: %s -> %d\n",teamName1,teamGoals1,teamName2,teamGoals2);
+
+                for(int i = 0; i < T; i++) {
+                    Team tmp = teams.get(i);
+                    if (tmp.name.equals(teamName1)) {
+                        tmp.addNumGames();
+                        tmp.addGoalsScored(teamGoals1);
+                        tmp.addGoalsAgainst(teamGoals2);
+                        if (teamGoals1 > teamGoals2) tmp.addWin();
+                        else if (teamGoals1 == teamGoals2) tmp.addTie();
+                        teams.set(i, tmp);
+                    }
+                    if(tmp.name.equals(teamName2)) {
+                        tmp.addNumGames();
+                        tmp.addGoalsScored(teamGoals2);
+                        tmp.addGoalsAgainst(teamGoals1);
+                        if(teamGoals2 > teamGoals1) tmp.addWin();
+                        else if(teamGoals2 == teamGoals1) tmp.addTie();
+                        teams.set(i,tmp);
+                    }
+                }
+
+
+
 //                System.out.printf("Team1: %s -> %d \t Team2: %s -> %d\n",teamName1,teamGoals1,teamName2,teamGoals2);
             }
+            teams.sort();
+//            teams.printAll();
+            for(int i = 0; i < T; i++) {
+                Team tmp = teams.get(i);
+                System.out.printf("%d) "+tmp.toString()+'\n',i+1);
+            }
+//            System.out.println("Finish teams------------");
+            System.out.println("");
         }
 
     /*
