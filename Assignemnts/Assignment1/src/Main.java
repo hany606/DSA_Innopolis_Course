@@ -2,7 +2,7 @@
 
 import java.util.Comparator;
 import java.util.NoSuchElementException;
-
+import java.util.Scanner;
 
 
 public class Main {
@@ -30,6 +30,7 @@ public class Main {
             if(c <= 0)
                 throw new IndexOutOfBoundsException("Initial size cannot be less than or equal to Zero");
             array = (E[]) new Comparable[c];
+            initialSize = c;
         }
 
         public DA () {
@@ -579,12 +580,169 @@ public class Main {
     }
 
 
+    public static class Team implements Comparable {
+        private String name;
+        private int teamRank;
+        private int numGames;
+        private int wins;
+        private int ties;
+        private int goalsScored;
+        private int goalsAgainst;
+
+        public Team (String name, int teamRank){
+            this.name = name;
+            this.teamRank = teamRank;
+            this.numGames = 0;
+            this.wins = 0;
+            this.ties = 0;
+            this.goalsScored = 0;
+            this.goalsAgainst = 0;
+        }
+
+        public int getGoalsAgainst() {
+            return goalsAgainst;
+        }
+
+        public int getGoalsScored() {
+            return goalsScored;
+        }
+
+        public int getNumGames() {
+            return numGames;
+        }
+
+        public int getTeamRank() {
+            return teamRank;
+        }
+
+        public int getTies() {
+            return ties;
+        }
+
+        public int getWins() {
+            return wins;
+        }
+
+        public int getLosses() {
+            return(this.numGames-(this.wins+this.ties));
+        }
+        public int getTotalPoints() {
+            return (this.wins * 3 + this.ties * 1);
+        }
+        public int getGoalsDifference() {
+            return (this.goalsScored - this.goalsAgainst);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setGoalsAgainst(int goalsAgainst) {
+            this.goalsAgainst = goalsAgainst;
+        }
+
+        public void setGoalsScored(int goalsScored) {
+            this.goalsScored = goalsScored;
+        }
+
+        public void setNumGames(int numGames) {
+            this.numGames = numGames;
+        }
+
+        public void setTeamRank(int teamRank) {
+            this.teamRank = teamRank;
+        }
+
+        public void setTies(int ties) {
+            this.ties = ties;
+        }
+
+        public void setWins(int wins) {
+            this.wins = wins;
+        }
+
+        public void addWin() {
+            this.wins++;
+        }
+        public void addTie() {
+            this.wins++;
+        }
+        public void addNumGames() {
+            this.numGames++;
+        }
+        public void addGoalsScored(int i) {
+            this.goalsScored += i;
+        }
+        public void addGoalsAgainst(int i) {
+            this.goalsAgainst += i;
+        }
+
+
+        @Override
+        public int compareTo(Object o) {
+            return 0;
+        }
+
+    }
+
+
     public static void main(String[] args) {
 	// write your code here
-        
+        Scanner input = new Scanner(System.in);
+        int N = input.nextInt();
+
+        for(int t = 0; t < N; t++) {
+            System.out.println(input.next());
+            int T = input.nextInt();
+            List<Team> teams = new DA<>(T+1);
+
+            for (int i = 0; i < T; i++) {
+                String teamName = input.next();
+                Team tmp = new Team(teamName, i+1);
+                teams.addLast(tmp);
+            }
+
+            int G = input.nextInt();
+            for(int i = 0; i < G; i++) {
+                String s = input.next();
+                boolean flag = false, flag1 = false;
+                String teamName1 = "", teamName2 = "";
+                int teamGoals1 = 0, teamGoals2 = 0;
+                int hashIndex = 0, colIndex = 0;
+                for(int x = 0; x < s.length(); x++) {
+                    if(s.charAt(x) == '#') {
+                        if(flag == false) {
+                            teamName1 = s.substring(0,x);
+                            hashIndex = x;
+                            flag = true;
+                            continue;
+                        }
+                        else {
+                            teamGoals2 = Integer.parseInt(s.substring(colIndex+1,x));
+                            teamName2 = s.substring(x+1,s.length());
+                            break;
+                        }
+                    }
+                    if(s.charAt(x) == ':') {
+                        colIndex = x;
+                        teamGoals1 = Integer.parseInt(s.substring(hashIndex + 1, x));
+                        flag1 = true;
+                        continue;
+                    }
+                }
+                
+//                System.out.printf("Team1: %s -> %d \t Team2: %s -> %d\n",teamName1,teamGoals1,teamName2,teamGoals2);
+            }
+        }
+
     /*
-        DLL<Integer> li = new DLL<>();
-//        DA<Integer> li = new DA<>();
+        List<Integer> li = new DLL<>();
+//        List<Integer> li = new DA<>();
 
         //try add from first using the index and last and also delete
 
@@ -651,7 +809,7 @@ public class Main {
 
 
 //        System.out.println(li.sort(1,0));
-    */
+//    */
 
     }
 }
