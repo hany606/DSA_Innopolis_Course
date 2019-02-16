@@ -1,3 +1,6 @@
+
+
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 
@@ -15,15 +18,22 @@ public class Main {
         void deleteLast();
         void set(int i, E e);
         E get(int i);
+        void sort();
         void printAll();
     }
 
-    public static class DA <E> implements List<E> {
+    public static class DA <E extends Comparable<E>> implements List<E>, Comparator {
         private int size = 0;
-        private int initialSize = 100;
+        public int initialSize = 1;
         private E[] array;
-        DA () {
-            array = (E[]) new Object[initialSize];
+        public DA (int c) {
+            if(c <= 0)
+                throw new IndexOutOfBoundsException("Initial size cannot be less than or equal to Zero");
+            array = (E[]) new Comparable[c];
+        }
+
+        public DA () {
+            array = (E[]) new Comparable[initialSize];
         }
 
 
@@ -45,24 +55,27 @@ public class Main {
                 if(size == initialSize) {
                     System.out.println("Double");
                     //copy, expand, move
-                    E[] array2 = (E[]) new Object[initialSize];
+                    E[] array2 = (E[]) new Comparable[initialSize];
                     for (int x = 0; x < initialSize; x++) {
                         array2[x] = array[x];
                     }
+
+                    int originalSize = initialSize;
                     initialSize *= 2;
-                    array = (E[]) new Object[initialSize];
-                    for (int x = 0; x < initialSize; x++) {
+                    array = (E[]) new Comparable[initialSize];
+
+                    for (int x = 0; x < originalSize; x++) {
                         array[x] = array2[x];
                     }
                 }
                 //shift
-                E tmp = (E) new Object();
-                E tmp2 = (E) new Object();
-                tmp = array[i];
+                E[] tmp = (E[]) new Comparable[2];
+//                E[] tmp2 = (E[]) new Comparable[1];
+                tmp[0] = array[i];
                 for(int x = i; x < size; x++) {
-                    tmp2 = array[x+1];
-                    array[x+1] = tmp;
-                    tmp = tmp2;
+                    tmp[1] = array[x+1];
+                    array[x+1] = tmp[0];
+                    tmp[0] = tmp[1];
 
                 }
                 array[i] = e;
@@ -83,13 +96,14 @@ public class Main {
         @Override
         public void delete(E e) {
             boolean flag = false;
-            for(int x = 0; x < size; x++) {
+            for(int x = 0; x < size-1; x++) {
+                System.out.printf("%d -> %d\n", array[x],e);
                 if(array[x] == e) flag = true;
                 if(flag) {
                     array[x] = array[x+1];
                 }
             }
-            if(flag)
+            if(flag || array[size-1] == e)
                 array[size-1] = null;
             else
                 throw new NoSuchElementException();
@@ -99,12 +113,12 @@ public class Main {
 
         @Override
         public void delete(int i) {
-            if(i+1 > size)
+            if(i+1 > size) {
                 throw new IndexOutOfBoundsException();
-
-            else
+            }
+            else {
                 delete(array[i]);
-
+            }
         }
 
         @Override
@@ -134,6 +148,30 @@ public class Main {
                 return array[i];
         }
 
+        void swap(int i, int x) {
+            E tmp = array[i];
+            array[i] = array[x];
+            array[x] = tmp;
+        }
+
+        @Override
+        public void sort() {
+//            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
+            for(int i = 0; i < size; i++)
+            {
+                int index = i;
+                for(int x = i; x < size; x++)
+                {
+                    //get the smallest element than it
+                    if(array[x].compareTo(array[index]) == -1) {
+                        index = x;
+                    }
+                }
+                swap(index,i);
+            }
+
+        }
+
         @Override
         public void printAll() {
             System.out.printf("Size = %d, ", size);
@@ -144,9 +182,17 @@ public class Main {
 
 
         }
+
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            E e1 = (E) o1;
+            E e2 = (E) o2;
+            return e1.compareTo(e2);
+        }
     }
 
-    public static class DLL_Node <E> {
+    public static class DLL_Node <E extends Comparable<E>> implements Comparable<DLL_Node> {
 
         private DLL_Node<E> next;
         private DLL_Node<E> prev;
@@ -186,10 +232,14 @@ public class Main {
         }
 
 
+        @Override
+        public int compareTo(DLL_Node o) {
+            return this.value.compareTo((E) o.value);
+        }
     }
 
     //-----------------------------------------------------------------------
-    public static class DLL<E> implements List<E> {
+    public static class DLL<E extends Comparable<E>> implements List<E>, Comparator {
 
         private int size = 0;
         private DLL_Node<E> head = new DLL_Node<>();
@@ -469,6 +519,43 @@ public class Main {
                 throw new IndexOutOfBoundsException();
 
         }
+
+        void swap(DLL_Node<E> i, DLL_Node<E> x) {
+//            System.out.printf("it1-> %d , it0-> %d\n", i.getNext().getValue(), x.getNext().getValue());
+            E tmp = (i.getNext()).getValue();
+            (i.getNext()).setValue((x.getNext()).getValue());
+            (x.getNext()).setValue(tmp);
+        }
+
+        @Override
+        public void sort() {
+//            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
+            DLL_Node<E> it0 = new DLL_Node<>();
+            it0.setNext(head.getNext());
+            for(int i = 0; it0.getNext() != null; i++)
+            {
+                DLL_Node<E> it1 = new DLL_Node<>();
+                it1.setNext(it0.getNext());
+                DLL_Node<E> target = new DLL_Node<>();
+                target.setNext(it0.getNext());
+
+                for (int x = 0; it1.getNext() != null; x++) {
+
+                    if((it1.getNext()).compareTo(it0.getNext()) == -1) {
+
+                        target.setNext(it1.getNext());
+                    }
+
+                    it1.setNext((it1.getNext()).getNext());
+
+                }
+
+                swap(it0,target);
+                it0.setNext((it0.getNext()).getNext());
+            }
+
+        }
+
         @Override
         public void printAll() {
             System.out.printf("Size: %d\n",size);
@@ -482,21 +569,33 @@ public class Main {
                 }
             }
         }
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            E e1 = (E) o1;
+            E e2 = (E) o2;
+            return e1.compareTo(e2);
+        }
     }
 
 
     public static void main(String[] args) {
 	// write your code here
-
-//        DLL<Integer> li = new DLL<>();
-        DA<Integer> li = new DA<>();
+        
+    /*
+        DLL<Integer> li = new DLL<>();
+//        DA<Integer> li = new DA<>();
 
         //try add from first using the index and last and also delete
 
         li.printAll();
         li.add(0,Integer.parseInt("11"));
+        li.printAll();
         li.addFirst(Integer.parseInt("10"));
+        li.printAll();
         li.addFirst(Integer.parseInt("8"));
+        li.printAll();
+
         li.add(1,Integer.parseInt("9"));
 
         li.printAll();
@@ -537,7 +636,22 @@ public class Main {
         li.delete(0);
         li.printAll();
 
+        li.deleteFirst();
+        li.deleteFirst();
+        li.deleteFirst();
+        li.deleteFirst();
+        li.deleteFirst();
 
+        for(int i = 6; i >= 0; i--) {
+            li.addLast(i);
+        }
+        li.printAll();
+        li.sort();
+        li.printAll();
+
+
+//        System.out.println(li.sort(1,0));
+    */
 
     }
 }
