@@ -165,7 +165,7 @@ public class Main {
                 for(int x = i+1; x < size; x++)
                 {
                     //get the smallest element than it
-                    if(array[x].compareTo(array[index]) == 1) {
+                    if(array[x].compareTo(array[index]) <= -1) {
 //                        System.out.println("Do");
                         index = x;
                     }
@@ -541,16 +541,17 @@ public class Main {
 //            return array[i].compareTo(array[x]); // compareTo: asserts like greater i_th > x_th
             DLL_Node<E> it0 = new DLL_Node<>();
             it0.setNext(head.getNext());
-            for(int i = 0; it0.getNext() != null; i++)
+            for(int i = 0; it0.getNext().getNext() != null; i++)
             {
                 DLL_Node<E> it1 = new DLL_Node<>();
-                it1.setNext(it0.getNext());
+                it1.setNext((it0.getNext()).getNext());
                 DLL_Node<E> target = new DLL_Node<>();
                 target.setNext(it0.getNext());
 
                 for (int x = 0; it1.getNext() != null; x++) {
 
-                    if((it1.getNext()).compareTo(it0.getNext()) == -1) {
+
+                    if((it1.getNext()).compareTo(target.getNext()) <= -1) {
 
                         target.setNext(it1.getNext());
                     }
@@ -707,10 +708,8 @@ public class Main {
                 else {
                     if(this.getGoalsDifference() > tmp.getGoalsDifference()) return 1;
                     else if(this.getGoalsDifference() < tmp.getGoalsDifference()) return -1;
-                    else {
-//                        System.out.println("final");
-                        return (this.name.compareTo(tmp.getName()));
-                    }
+                    else return (this.name.compareTo(tmp.getName()));
+
                 }
             }
         }
@@ -731,7 +730,7 @@ public class Main {
             String tournamentName = input.nextLine();
             System.out.println(tournamentName);
             int T = Integer.parseInt(input.nextLine());
-            List<Team> teams = new DA<>(T+1);
+            List<Team> teams = new DLL<>();
 
             for (int i = 0; i < T; i++) {
                 String teamName = input.nextLine();
@@ -796,9 +795,9 @@ public class Main {
             }
             teams.sort();
 //            teams.printAll();
-            for(int i = 0; i < T; i++) {
+            for(int i = T-1; i >= 0; i--) {
                 Team tmp = teams.get(i);
-                System.out.printf("%d) "+tmp.toString()+'\n',i+1);
+                System.out.printf("%d) "+tmp.toString()+'\n',T-i);
             }
 //            System.out.println("Finish teams------------");
             System.out.println("");
