@@ -987,28 +987,28 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 //        /*
-        Scanner input = new Scanner(System.in); // Initiate the input and link with System.in
-        int N = Integer.parseInt(input.nextLine()); // Scan the number of tournament
+        BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
+        int N = Integer.parseInt(input.readLine()); // Scan the number of tournament
 
         // Take the data if the t_th tournament
         for(int t = 0; t < N; t++) {
-            String tournamentName = input.nextLine();   // Input the name of the tournament
+            String tournamentName = input.readLine();   // Input the name of the tournament
             System.out.println(tournamentName);         // Print the name of the tournament
-            int T = Integer.parseInt(input.nextLine()); // Scan the number of Teams
+            int T = Integer.parseInt(input.readLine()); // Scan the number of Teams
             List<Team> teams = new DynamicArray<>();    // Initiate a list of teams objects
 //            List<Team> teams = new DoublyLinkedList<>();
 
             // Take the names of the teams
             for (int i = 0; i < T; i++) {
-                String teamName = input.nextLine();
+                String teamName = input.readLine();
                 Team tmp = new Team(teamName);
                 teams.addLast(tmp); // Add the team to the end of the list
             }
 
-            int G = Integer.parseInt(input.nextLine()); // Scan the number of matches
+            int G = Integer.parseInt(input.readLine()); // Scan the number of matches
             // Take the data of the matches
             for(int g = 0; g < G; g++) {
-                String s = input.nextLine();            // Scan the whole line
+                String s = input.readLine();            // Scan the whole line
                 boolean flag = false;                   // Create flag to help in parsing the line
                 String teamName1 = "", teamName2 = "";  // Store the names of the teams
                 int teamGoals1 = 0, teamGoals2 = 0;     // Store the goals of the teams

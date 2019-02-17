@@ -233,7 +233,7 @@ public class Main {
             // Empty the last element of the array if we found the element or if it was the last element in the array
             if(found || array[size-1] == e)
                 array[size-1] = null;
-            // If we didn't find the element we throw an NoSuchElementException
+                // If we didn't find the element we throw an NoSuchElementException
             else
                 throw new NoSuchElementException();
             size--; //decrease the size variable of the array
@@ -513,10 +513,10 @@ public class Main {
             // If the index equals to 0 add in the first of the List
             if (i == 0)
                 addFirst(o);
-            // If the index equals to the size add in the last of the List
+                // If the index equals to the size add in the last of the List
             else if (i == size)
                 addLast(o);
-            // If in the middle
+                // If in the middle
             else {
                 DoublyLinkedList_Node<E> target = new DoublyLinkedList_Node<>();    // Create a new temporary target node will point on the needed position
                 target.setNext(head.getNext()); // Points where the head node points to (the start of the list)
@@ -598,10 +598,10 @@ public class Main {
                 // If the target element was the first element of the List, deleteFirst()
                 if(x == 0)
                     deleteFirst();
-                // If the target element was the last element of the List, deleteLast()
+                    // If the target element was the last element of the List, deleteLast()
                 else if(x == size - 1)
                     deleteLast();
-                // If the target element was in the middle
+                    // If the target element was in the middle
                 else {
                     DoublyLinkedList_Node<E> leftTmp = new DoublyLinkedList_Node<>();   // Node to point the previous node of the target
                     DoublyLinkedList_Node<E> rightTmp = new DoublyLinkedList_Node<>();  // Node to point the next node of the target
@@ -644,10 +644,10 @@ public class Main {
             // If we need to delete the first element
             if(i == 0)
                 deleteFirst();
-            // If we need to delete the last element
+                // If we need to delete the last element
             else if(i == size -1)
                 deleteLast();
-            // If the element was in the middle
+                // If the element was in the middle
             else {
                 // If the size equals one
                 if (size == 1) {
@@ -985,7 +985,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
 //        /*
         Scanner input = new Scanner(System.in); // Initiate the input and link with System.in
         int N = Integer.parseInt(input.nextLine()); // Scan the number of tournament
@@ -1075,9 +1075,7 @@ public class Main {
     /*
 //        List<Integer> li = new DoublyLinkedList<>();
         List<Integer> li = new DynamicArray<>();
-
         //try add from first using the index and last and also delete
-
         li.printAll();
         li.add(0,Integer.parseInt("11"));
         li.printAll();
@@ -1085,9 +1083,7 @@ public class Main {
         li.printAll();
         li.addFirst(Integer.parseInt("8"));
         li.printAll();
-
         li.add(1,Integer.parseInt("9"));
-
         li.printAll();
         li.deleteFirst();
         li.printAll();
@@ -1099,17 +1095,14 @@ public class Main {
         li.printAll();
         li.addLast(12);
         li.printAll();
-
         li.deleteFirst();
         li.printAll();
         li.addFirst(59);
         li.printAll();
-
         li.deleteLast();
         li.printAll();
         li.addLast(13);
         li.printAll();
-
 //        li.delete(1);
 //        li.printAll();
 //        li.delete(2);
@@ -1125,22 +1118,18 @@ public class Main {
         li.printAll();
         li.delete(0);
         li.printAll();
-
         li.deleteFirst();
         li.deleteFirst();
         li.deleteFirst();
         li.deleteFirst();
         li.deleteFirst();
         li.printAll();
-
         for(int i = 6; i >= 0; i--) {
             li.addLast(i);
         }
         li.printAll();
         li.sort();
         li.printAll();
-
-
 //        System.out.println(li.sort(1,0));
 //    */
 
