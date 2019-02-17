@@ -1,0 +1,101 @@
+[33mcommit fcb9b4383e95c88315c6e83cf957bb475f827cd5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sun Feb 17 02:20:16 2019 +0300
+
+    Finish the documentation
+
+[33mcommit 3f324e59d4be3a899a24340d9ea832b0c0878338[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sun Feb 17 01:32:49 2019 +0300
+
+    Finish the documentation
+
+[33mcommit beb06d6523dff6283094c0130ac28883139c0128[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sat Feb 16 20:54:57 2019 +0300
+
+    Final Code without documentation
+
+[33mcommit 4a0d6a55484ba29c8d559425875818984e7558f0[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sat Feb 16 19:24:09 2019 +0300
+
+    Final with WA T3
+
+[33mcommit 5533f982a178e2cee34ef72f88c950018921c45f[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sat Feb 16 16:51:24 2019 +0300
+
+    Part 1 tournment
+
+[33mcommit a1170d7a489d21a86bcbac1486bc97f57c44ddd8[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sat Feb 16 15:34:13 2019 +0300
+
+    Finish the sorting algorithm
+
+[33mcommit 134a8a85ab581c4e3d2685ae180caaf5706dc5ec[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Fri Feb 15 02:11:21 2019 +0300
+
+    Part 2 Dyncamic Array
+
+[33mcommit 0e420cef4083d4be9b1b9b92a19794d3695dd721[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Thu Feb 14 19:13:26 2019 +0300
+
+    Part1 Dynamic Array
+
+[33mcommit 267f43d92433d6c83a223112bde1a123732b4278[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Tue Feb 12 23:27:03 2019 +0300
+
+    Assignment 1: Finish part1: Doubly_LL implementation for List ADT
+
+[33mcommit abbe6344fa25a75df61e90036a779a00a7a2c87f[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Mon Feb 11 22:42:16 2019 +0300
+
+    part 1 from Assignment 1
+
+[33mcommit 589568eeb6096da29c2f01f730c35bf0e7bef1e7[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sun Feb 10 23:32:55 2019 +0300
+
+    Lab 3
+
+[33mcommit bea9d91dfee92cc198cb40eb4882126550a382ed[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Fri Feb 1 16:13:53 2019 +0300
+
+    Add Lab2 & SelectionSort
+
+[33mcommit 6c4bba46a1c913cf05b38fd752206ad06150d884[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Tue Jan 29 01:00:29 2019 +0300
+
+    Implement Insertion and Buble sorting as training
+
+[33mcommit e2e65f2e7338cfea9f1cd94fbcc819414828dd26[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Sat Jan 26 15:11:04 2019 +0300
+
+    1st lab
+
+[33mcommit a370427ab3c97225a181cb13a22ed42b6a4f6eec[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Fri Jan 25 19:25:41 2019 +0300
+
+    Update README.md
+
+[33mcommit 8105d12ce835d6601e7bb51cd41daacd8447bea4[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Fri Jan 25 19:25:24 2019 +0300
+
+    Update README.md
+
+[33mcommit 3fb2ea82b386293d0ed4d8589cee035bf40372cb[m
+Author: Hany Hamed Aly Elanwar <h.hamed.elanwar@gmail.com>
+Date:   Mon Jan 21 17:02:49 2019 +0300
+
+    Initial commit
