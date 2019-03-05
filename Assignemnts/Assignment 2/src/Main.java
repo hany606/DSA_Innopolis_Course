@@ -14,52 +14,43 @@ import java.util.*;
 
 public class Main {
 
-    public static int lev(String word1, String word2) {
+    public static int estimate(String word1, String word2) {
         int n = word1.length();
         int m = word2.length();
+        int cost = 0;
 
         if(n == 0)
             return m;
         if(m == 0)
             return n;
 
-        int[][] table = new int[m+1][n+1];
+        int[][] table = new int[n+1][m+1];
 
         for(int i = 0; i < n+1; i++)
-            table[0][i] = i;
-        for(int i = 1; i < m+1; i++)
             table[i][0] = i;
+        for(int i = 0; i < m+1; i++)
+            table[0][i] = i;
 
-        for(int j = 1; j < m+1; j++) {
-            for(int i = 1; i < n+1; i++) {
-                int cost = ((word1.charAt(i-1) == word2.charAt(j-1)) ? 0 : 1);
-                table[j][i] = Math.min(table[j][i-1]+1, Math.min(table[j-1][i]+1,table[j-1][i-1]+cost));
+        for(int i = 1; i < n+1; i++) {
+            for(int j = 1; j < m+1; j++) {
+
+                if(word1.charAt(i-1) == word2.charAt(j-1))
+                    cost = 0;
+                else
+                    cost = 1;
+
+                table[i][j] = Math.min(table[i][j-1]+1, Math.min(table[i-1][j]+1,table[i-1][j-1]+cost));
+
+                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
+                    table[i][j] = Math.min(table[i][j],table[i-2][j-2]+cost);
+
             }
         }
 
-        return table[m][n];
+        return table[n][m];
     }
 
-    public static int estimate(String word1, String word2) {
 
-        int counter = 0;
-
-        int beforeCounter = lev(word1,word2);
-            ArrayList<Integer> costList = new ArrayList<>();
-
-            for(int i = 0; i < word1.length()-1; i++) {
-                if(i == word2.length()-1) break;
-                costList.add((word1.charAt(i) == word2.charAt(i + 1)) ? 1 : 0);
-            }
-            for(int i = 0; i < costList.size(); i++) {
-                if(costList.get(i) == 1) {
-                    counter++;
-                    word1 = word1.substring(0,i)+ word1.charAt(i+1) + word1.charAt(i)+word1.substring(i+2);;//+word1.charAt(i);   // maybe give an error if the swap in the end (Test it)
-                }
-            }
-
-        return Math.min(beforeCounter,counter + lev(word1,word2));
-    }
 
     public static void task21(Scanner input) {
         int n = input.nextInt();
@@ -106,54 +97,113 @@ public class Main {
 
     public static ArrayList<String> parseString(String s) {
         ArrayList<String> list = new ArrayList<>();
-        int pointer = 0;
+        String tmp = "";
         for(int i = 0; i < s.length(); i++) {
-            if(s.charAt(i) == ' ') {
-                list.add(s.substring(pointer,i));
-                pointer = i+1;
+            if(!(s.charAt(i) >= 'a' && s.charAt(i) <= 'z')) {
+//                System.out.print(s.charAt(i));
+                if(tmp.length() != 0) {
+                    list.add(tmp);
+                    tmp = "";
+                }
+                continue;
             }
+
+            tmp += s.charAt(i);
         }
+        list.add(tmp);
         return list;
     }
 
     public static void task23(Scanner input) {
-        String source = input.next();
-        String target = input.next();
+
+        String source = input.nextLine();
+        String target = input.nextLine();
 
         //We should use hashmap to get the frequency
+        // value: cost,frequency
         HashMap<String,Pair<Integer,Integer>> dictionary = new HashMap<>();
         ArrayList<String> correction = new ArrayList<>();
 
         ArrayList<String> tmp = parseString(source);
-        String tmps = "";
+        String tmpss = "";
         for(int i = 0; i < tmp.size(); i++) {
-            tmps = tmp.get(i);
+            tmpss = tmp.get(i);
             //update the frequency and set the table
-            dictionary.put(tmps,new Pair<>(0,(dictionary.containsKey(tmps) ? 1: 0)*dictionary.get(tmps).getValue()+1));
+            dictionary.put(tmpss,new Pair<>(0,(dictionary.containsKey(tmpss) ? dictionary.get(tmpss).getValue()+1: 0)));
+//            System.out.println(tmpss);
         }
 
-        tmp = parseString(target);
-        //Loop for each token in the string
-        for(int i = 0; i < tmp.size(); i++) {
 
-            String starget = tmp.get(i);
-            
-            // I used tmps to initialize the minimum variable
-            int mn = estimate(starget, tmps);
-            for (Map.Entry<String, Pair<Integer, Integer>> entry : dictionary.entrySet()) {
-                //Todo: I think here we will have some function to filter the starget to remove ... and other characters
-                int estimatedDifference = estimate(starget, entry.getKey());
-                mn = Math.min(mn, estimatedDifference);
-                //update the cost
-                dictionary.put(entry.getKey(), new Pair<>(estimatedDifference, dictionary.get(entry.getKey()).getValue()));
+
+        String tmps = "";
+        for(int i = 0; i < target.length()+1; i++) {
+//            System.out.printf("/%c/",target.charAt(i));
+            if(i == target.length() || (!(target.charAt(i) >= 'a' && target.charAt(i) <= 'z'))) {
+                if(tmps.length() != 0) {
+                    int mn = estimate(tmps, tmpss);
+                    for (Map.Entry<String, Pair<Integer, Integer>> entry : dictionary.entrySet()) {
+                        //Todo: I think here we will have some function to filter the starget to remove ... and other characters
+                        int estimatedDifference = estimate(tmps, entry.getKey());
+                        mn = Math.min(mn, estimatedDifference);
+                        //update the cost
+                        dictionary.put(entry.getKey(), new Pair<>(estimatedDifference, dictionary.get(entry.getKey()).getValue()));
+                    }
+
+//                    System.out.println("-----------------------");
+//                    System.out.println(mn);
+//                    System.out.println(tmps);
+//                    for (Map.Entry<String, Pair<Integer, Integer>> entry : dictionary.entrySet()) {
+//                        System.out.println(entry);
+//                    }
+//                    System.out.println("-----------------------");
+
+
+                    String correctKey = "";
+                    int mxFreq = -1;
+                    for (Map.Entry<String, Pair<Integer, Integer>> entry : dictionary.entrySet()) {
+                        if(mn == dictionary.get(entry.getKey()).getKey()) {
+                            if (mxFreq < dictionary.get(entry.getKey()).getValue())
+                                correctKey = entry.getKey();
+                        }
+                    }
+
+                    System.out.print(correctKey);
+//                    System.out.println("********************");
+
+                    tmps = "";
+                }
+                if(i == target.length())
+                    break;
+                System.out.print(target.charAt(i));
+
+                continue;
             }
 
-            //Todo: Continue
-            //Choose the mose suitable correction from the most frequency and less cost
-            //Print it
-            //See the printing ... issue
-
+            tmps += target.charAt(i);
         }
+
+//        tmp = parseString(target);
+//        //Loop for each token in the string
+//        for(int i = 0; i < tmp.size(); i++) {
+//
+//            String starget = tmp.get(i);
+//
+//            // I used tmps to initialize the minimum variable
+//            int mn = estimate(starget, tmps);
+//            for (Map.Entry<String, Pair<Integer, Integer>> entry : dictionary.entrySet()) {
+//                //Todo: I think here we will have some function to filter the starget to remove ... and other characters
+//                int estimatedDifference = estimate(starget, entry.getKey());
+//                mn = Math.min(mn, estimatedDifference);
+//                //update the cost
+//                dictionary.put(entry.getKey(), new Pair<>(estimatedDifference, dictionary.get(entry.getKey()).getValue()));
+//            }
+//
+//            //Todo: Continue
+//            //Choose the mose suitable correction from the most frequency and less cost
+//            //Print it
+//            //See the printing ... issue
+
+//        }
     }
 
     public static void main(String[] args) {
