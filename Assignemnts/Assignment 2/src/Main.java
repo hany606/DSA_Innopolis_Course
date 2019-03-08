@@ -272,7 +272,7 @@ public class Main {
      * @param ms the list of the new rules
 
      */
-    public static int estimateBonus(String word1, String word2, Misspelling[] ms) {
+    public static int estimateBonus1(String word1, String word2, Misspelling[] ms) {
         int n = word1.length();
         int m = word2.length();
         int cost = 0;
@@ -297,17 +297,19 @@ public class Main {
                 else
                     cost = 1;
 
-                table[i][j] = Math.min(table[i][j-1]+1, Math.min(table[i-1][j]+1,table[i-1][j-1]+cost));
-
-
-                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
-                    table[i][j] = Math.min(table[i][j],table[i-2][j-2]+cost);
-
                 //Iterate over the list of new defined rules and calculate the minimum cost
                 for(int x = 0; x < ms.length; x++){
                     if(ms[x].misspellingRule(i,j,word1,word2))
                         table[i][j] = Math.min(table[i][j], table[i+ms[x].getRowIndex()][j+ms[x].getColumnIndex()]+ms[x].getCost());
                 }
+
+                table[i][j] = Math.min(table[i][j-1]+1, Math.min(table[i-1][j]+1,table[i-1][j-1]+cost));
+
+
+//                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
+//                    table[i][j] = Math.min(table[i][j],table[i-2][j-2]+cost);
+
+
 
             }
         }
@@ -319,14 +321,228 @@ public class Main {
      * The modified version of estimate in Task 1
      * @param input This is the Scanner object to take the input
      * @param ms the list of the new rules
-     */    public static void bonusTask(Scanner input,Misspelling[] ms) {
+     */
+    public static void bonusTask1(Scanner input,Misspelling[] ms) {
         int n = input.nextInt();
         for(int  i = 0; i < n; i++) {
             String source = input.next();
             String target = input.next();
-            System.out.println(estimateBonus(source,target,ms));
+            System.out.println(estimateBonus1(source,target,ms));
         }
     }
+
+    /**
+     * This is just a Class to represent the keys and its neighbours
+     */
+    public static class Keypad {
+        private char c;
+        private ArrayList<Character> sim = new ArrayList<>();
+        Keypad(char c,String u) {
+            this.c = c;
+            for(int  i = 0; i < u.length(); i++)
+                sim.add(u.charAt(i));
+        }
+
+        public ArrayList<Character> getSim() {
+            return sim;
+        }
+
+        public char getC() {
+            return c;
+        }
+
+        public void setC(char c) {
+            this.c = c;
+        }
+
+        public void addToSim(char u) {
+            sim.add(u);
+        }
+    }
+
+    /**
+     * This method is used to estimate the cost of changing the source word to the target one using only:
+     * Deletion, Insertion, Swap, phonetic letters errors, neighbour letters errors.
+     * @param word1 This is the source word
+     * @param word2 This is the target word
+     * @return float the cost
+     */
+    public static float estimateBonus2(String word1, String word2) {
+        //Create a list with allowed phoneticList changes from 1 letter to 2 letters (1->2 relation)
+        ArrayList<Pair<Character,String>> phoneticList12C = new ArrayList<>();
+        phoneticList12C.add(new Pair<>('f',"ph"));
+        phoneticList12C.add(new Pair<>('l',"el"));
+        phoneticList12C.add(new Pair<>('m',"em"));
+        phoneticList12C.add(new Pair<>('n',"en"));
+
+        //This way to deal with consecutive pairs
+//        char keyboardClose1 [] = {'q','w','e','r','t','t','y','u','i','o','p'};
+//        char keyboardClose2 [] = {'a','s','d','f','g','h','j','k','l'};
+//        char keyboardClose3 [] = {'z','x','c','v','b','n','m'};
+
+
+        //This is naiive way instead of checking boundaries and check the neighbours from the arrays above
+        ArrayList<Keypad> ke = new ArrayList<>();
+        ke.add(new Keypad('q',"wsa"));
+        ke.add(new Keypad('w',"eqdsa"));
+        ke.add(new Keypad('e',"rfdsw"));
+        ke.add(new Keypad('r',"tgfde"));
+        ke.add(new Keypad('t',"yhgfr"));
+        ke.add(new Keypad('y',"ujhgt"));
+        ke.add(new Keypad('u',"ikjhy"));
+        ke.add(new Keypad('i',"olkju"));
+        ke.add(new Keypad('o',"plki"));
+        ke.add(new Keypad('p',"ol"));
+        ke.add(new Keypad('a',"qws"));
+        ke.add(new Keypad('s',"edaqw"));
+        ke.add(new Keypad('d',"rfsew"));
+        ke.add(new Keypad('f',"tgder"));
+        ke.add(new Keypad('g',"yhfrt"));
+        ke.add(new Keypad('h',"ujgty"));
+        ke.add(new Keypad('j',"ikhyu"));
+        ke.add(new Keypad('k',"oljui"));
+        ke.add(new Keypad('l',"okip"));
+        ke.add(new Keypad('z',"cxas"));
+        ke.add(new Keypad('x',"czdas"));
+        ke.add(new Keypad('c',"vxfds"));
+        ke.add(new Keypad('v',"bgfcd"));
+        ke.add(new Keypad('b',"vfnhg"));
+        ke.add(new Keypad('n',"mjbgh"));
+        ke.add(new Keypad('m',"nhjk"));
+
+
+
+        int n = word1.length();
+        int m = word2.length();
+        float cost = 0;
+
+        if(n == 0)
+            return m;
+        if(m == 0)
+            return n;
+
+        float[][] table = new float[n+1][m+1];
+
+        for(int i = 0; i < n+1; i++)
+            table[i][0] = i;
+        for(int i = 0; i < m+1; i++)
+            table[0][i] = i;
+
+        for(int i = 1; i < n+1; i++) {
+            for(int j = 1; j < m+1; j++) {
+
+                if(word1.charAt(i-1) == word2.charAt(j-1))
+                    cost = 0;
+                //-------Start of The change of the bonus task-------
+                else {
+                    boolean flag = false;
+                    //Iterate over the list of phonetic similarities
+                    for(int x = 0; x < phoneticList12C.size(); x++) {
+                        //If the indeeds will be inside the range to make substring in order to compare with the phonetic list
+                        //and there is a change in phonetic
+                        if ((i <= n && j < m && m >= 2) && word1.charAt(i - 1) == phoneticList12C.get(x).getKey() && word2.substring(j - 1, j + 1).equals(phoneticList12C.get(x).getValue())) {
+                            table[0][j+1] = table[0][j];    //Make the index of the other character the same
+                            j++;                            //Increment the loop to pass it
+                            flag = true;                    //Raise the flag
+                            break;
+                        }
+                        //This is the same like above but in the reverse direction not from 1 -> 2 but 2 -> 1 [2 letters from source to 1 letter from target]
+                        if ((i < n && j <= m && n >= 2) && word2.charAt(j - 1) == phoneticList12C.get(x).getKey() && word1.substring(i - 1, i + 1).equals(phoneticList12C.get(x).getValue()) == true) {
+                            table[i+1][0] = table[i][0];
+                            i++;
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag == true) {
+                        table[i][j]++;    //Increment the cost and go for the next loop
+                        continue;
+                    }
+                    //Loop over all the keys to try to find the current letter, it works in the 2 directions
+                    for(int x = 0; x < ke.size(); x++) {
+                        //Check if it is the current character
+                        if(ke.get(x).getC() == word1.charAt(i-1)) {
+                            //Iterate over the neighbour list
+                            for(int k = 0; k < ke.get(x).getSim().size(); k++) {
+                                //if the character in the list of the neighbour, put the cost to 0.5
+                                if(ke.get(x).getSim().get(k) == word2.charAt(j-1)) {
+                                    cost = (float) 0.5;
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if(flag)
+                                break;
+                            // Work in the reverse direction
+                            if(ke.get(x).getC() == word2.charAt(j-1)) {
+                                for (int k = 0; k < ke.get(x).getSim().size(); k++) {
+                                    if (ke.get(x).getSim().get(k) == word1.charAt(i - 1)) {
+                                        cost = (float) 0.5;
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(flag)
+                                break;
+                        }
+                    }
+                    //The other way for only consecutive letters
+//
+//                    for(int x = 0; x < keyboardClose1.length-1; x++) {
+//                        if((word1.charAt(i-1) == keyboardClose1[x] && keyboardClose1[x+1] == word2.charAt(j-1)) || (word1.charAt(i-1) == keyboardClose1[x+1] && keyboardClose1[x] == word2.charAt(j-1))) {
+//                            cost = (float) 0.5;
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+//                    for(int x = 0; x < keyboardClose2.length-1; x++) {
+//                        if((word1.charAt(i-1) == keyboardClose2[x] && keyboardClose2[x+1] == word2.charAt(j-1)) || (word1.charAt(i-1) == keyboardClose2[x] && keyboardClose2[x+1] == word2.charAt(j-1))) {
+//                            cost = (float) 0.5;
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+//                    for(int x = 0; x < keyboardClose3.length-1; x++) {
+//                        if(word1.charAt(i-1) == keyboardClose3[x] && keyboardClose3[x+1] == word2.charAt(j-1)) {
+//                            cost = (float) 0.5;
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+
+
+                    if(flag != true)
+                        cost = 1;
+                    //-------End of The change-------
+                }
+                table[i][j] = Math.min(table[i][j-1]+1, Math.min(table[i-1][j]+1,table[i-1][j-1]+cost));
+
+
+                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
+                    table[i][j] = Math.min(table[i][j],table[i-2][j-2]+cost);
+
+            }
+        }
+
+        return table[n][m];
+    }
+
+    /**
+     * The modified version of estimate in Task 1
+     * @param input This is the Scanner object to take the input
+     */
+    public static void bonusTask2(Scanner input) {
+        int n = input.nextInt();
+        for(int  i = 0; i < n; i++) {
+            String source = input.next();
+            String target = input.next();
+            System.out.println(estimateBonus2(source,target));
+        }
+    }
+
+
+
 
 
     public static void main(String[] args) {
@@ -345,41 +561,51 @@ public class Main {
         task23(input);
 
 
-        //Extra task
+        //---------------------Bonus task---------------------
+
+
+//        Misspelling[] ms = new Misspelling[1];
+//        //Swap rule
+//        ms[0] = new Misspelling(1,-2,-2) {
+//            @Override
+//            public boolean misspellingRule(int i, int j, String word1, String word2) {
+//                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
+//                    return true;
+//                return false;
+//            }
+//        };
+
+
+//        bonusTask1(input,ms);
+
+//        bonusTask2(input);
+
+        //TestCases for Bonus Task2
+        //Notice: these words are just random words, I even don't know their meanings [In case they have another meaning in Russian]
         /*
-        //Creating the rules
-        Misspelling[] ms = new Misspelling[2];
-        ms[0] = new Misspelling(1,-2,-2) {
-            @Override
-            public boolean misspellingRule(int i, int j, String word1, String word2) {
-                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
-                    return true;
-                return false;
-            }
-        };
+9
+phog fog
+fog phog
+phog foh
+gfl gphl
+gfl gphh
+lop elop
+lop eloo
+lor elph
+gfl gphs
 
-        //Create a list with allowed phoneticList changes from 1 letter to 2 letters
-        ArrayList<Pair<Character,String>> phoneticList12C = new ArrayList<>();
-        phoneticList12C.add(new Pair<>('f',"ph"));
-        phoneticList12C.add(new Pair<>('l',"el"));
+        Out:
+        1
+        1
+        1.5
+        1
+        2
+        1
+        1.5
+        2.5
+        2
+         */
 
-
-        // Adding phonetic Misspelling rule
-        ms[1] = new Misspelling(1,0,0) {
-            @Override
-            public boolean misspellingRule(int i, int j, String word1, String word2) {
-                if(i < word1.length() && j < word2.length()){
-                    for(int x = 0; x < phoneticList12C.size(); x++)
-                        if(word1.charAt(x) == phoneticList12C.get(x).getKey() && word2.substring(x,2) == phoneticList12C.get(x).getValue())
-                            return true;
-                }
-                return false;
-            }
-        };
-
-        bonusTask(input,ms);
-
-    */
     }
 
 }
