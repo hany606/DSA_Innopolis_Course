@@ -558,25 +558,25 @@ public class Main {
 //        task22(input);
 
         //Task 2.3
-        task23(input);
+//        task23(input);
 
 
         //---------------------Bonus task---------------------
 
 
-//        Misspelling[] ms = new Misspelling[1];
-//        //Swap rule
-//        ms[0] = new Misspelling(1,-2,-2) {
-//            @Override
-//            public boolean misspellingRule(int i, int j, String word1, String word2) {
-//                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
-//                    return true;
-//                return false;
-//            }
-//        };
+        Misspelling[] ms = new Misspelling[1];
+        //Swap rule
+        ms[0] = new Misspelling(1,-2,-2) {
+            @Override
+            public boolean misspellingRule(int i, int j, String word1, String word2) {
+                if((i > 1 && j > 1) && word1.charAt(i-1) == word2.charAt(j-2) && word1.charAt(i-2) == word2.charAt(j-1))
+                    return true;
+                return false;
+            }
+        };
 
 
-//        bonusTask1(input,ms);
+        bonusTask1(input,ms);
 
 //        bonusTask2(input);
 
