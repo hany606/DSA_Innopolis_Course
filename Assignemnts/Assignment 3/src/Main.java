@@ -85,18 +85,20 @@ public class Main {
         public void insert(K k, V v){
 
             if(list.size() == 0){
-                System.out.println("INSERT0");
+//                System.out.println("INSERT0");
                 list.push(new Node<>(k,v));
                 return;
             }
             Node<K,V> tmp_node = list.pop();
             if(tmp_node.getChildren().size() == 0){
-                System.out.println("INSERT--Normal--Merge");
+//                System.out.println("INSERT--Normal--Merge");
                 list.push(tmp_node);
-                this.merge_tree(new Node(k,v));
+                list.push(new Node(k,v));
+                this.merge_tree();
             }
             else{
-                System.out.println("INSERT--NORMAL");
+//                System.out.println("INSERT--NORMAL");
+
                 list.push(tmp_node);
                 list.push(new Node<>(k,v));
             }
@@ -110,15 +112,20 @@ public class Main {
         public void removeMax(){
 
         }
-        private void merge_tree(Node<K,V> n){
+        private void merge_tree(){       //Node<K,V>
             int heap_size = this.getList().size();
             Stack<Node<K,V>> tmp_queue = new Stack<>();
             for(int i = 0; i < heap_size; i++){
+                this.print_heap();
+                if(this.getList().size() == 1)
+                    break;
+                Node<K,V> n = list.pop();
                 Node<K,V> tmp_node = list.pop();
                 System.out.println(tmp_node.getKey());
+                System.out.println(n.getKey());
                 int n_list_size = n.getChildren().size();
                 int tmp_node_list_size = tmp_node.getChildren().size();
-                System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
+//                System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
                 if(tmp_node_list_size < n_list_size){
                     list.push(n);
                     list.push(tmp_node);
@@ -130,23 +137,26 @@ public class Main {
                 }
                 else{
                     //real merge
-                    System.out.println("---Real Merge---");
-                    if(tmp_node.getKey().compareTo(n.getKey()) > 0){
+//                    System.out.println("---Real Merge---");
+                    if(tmp_node.getKey().compareTo(n.getKey()) < 0){
                         System.out.println("TMP GREATER");
                         ArrayList<Node<K,V>> tmp_list = n.getChildren();
                         tmp_list.add(tmp_node);
-                        tmp_node.setChildren(tmp_list);
+                        list.push(n);
+//                        tmp_node.setChildren(tmp_list); //cycle!!!!!!
                     }
-                    else{   // if(tmp_node.getKey().compareTo(n.getKey()) < 0)
-                        System.out.println("OTHER");
+                    else{   // if(tmp_node.getKey().compareTo(n.getKey()) > 0)  //n.key smaller
+//                        System.out.println("OTHER");
                         ArrayList<Node<K,V>> tmp_list = tmp_node.getChildren();
                         tmp_list.add(n);
-                        System.out.println(tmp_list);
-                        n.setChildren(tmp_list);
+                        list.push(tmp_node);
+//                        tmp_node.setChildren(tmp_list);
+//                        System.out.println(tmp_list);
                     }
 
                 }
-                tmp_queue.add(tmp_node);
+//                list.push(tmp_node);
+//                tmp_queue.add(tmp_node);
             }
             for(int i = 0; i < tmp_queue.size(); i++){
                 list.push(tmp_queue.pop());
@@ -159,11 +169,27 @@ public class Main {
             for(int i = 0; i < heap_size; i++){
                 //extract all the trees, then, merge
                 Node<K,V> tmp_tree = (Node<K, V>) h.getList().pop();
-                merge_tree(tmp_tree);
+                this.list.push(tmp_tree);
+                merge_tree();
             }
         }
 
-        public void print_Heap(){
+        private void print_tree(Node<K,V> n){
+            System.out.print("<");
+            System.out.print(n.getKey());
+            System.out.print(",");
+            System.out.print(n.getValue());
+            System.out.print(">");
+            if(n.getChildren().size() == 0) {
+                System.out.print("/");
+                return;
+            }
+            for(int i = 0; i < n.getChildren().size(); i++){
+                print_tree(n.getChildren().get(i));
+            }
+        }
+
+        public void print_heap(){
             Stack<Node<K,V>> tmp_list = new Stack<>();
             int heap_size = this.getList().size();
             System.out.println("-------------------------");
@@ -171,7 +197,16 @@ public class Main {
             for(int i = 0; i < heap_size; i++){
                 Node<K,V> n = this.getList().pop();
                 tmp_list.push(n);
-                System.out.printf(" ->%d: %d",i+1,n.getChildren().size()+1);
+                System.out.printf(" ->%d. #%d(",i+1,n.getChildren().size());
+                print_tree(n);
+//                for(int x = 0; x < n.getChildren().size(); x++){
+//                    System.out.print("<");
+//                    System.out.print(n.getChildren().get(x).getKey());
+//                    System.out.print(",");
+//                    System.out.print(n.getChildren().get(x).getValue());
+//                    System.out.print(">");
+//                }
+                System.out.print(")");
             }
             System.out.println("\n-------------------------");
             for(int i = 0; i < heap_size; i++){
@@ -190,13 +225,13 @@ public class Main {
         //Test Cases
         BinomialHeap<Integer,Character> bh = new BinomialHeap<>();
         bh.insert(1,'a');
-        bh.print_Heap();
-        bh.insert(2,'a');
-        bh.print_Heap();
-        bh.insert(3,'a');
-        bh.print_Heap();
-        bh.insert(3,'a');   //ERROR One have been deleted
-        bh.print_Heap();
+        bh.print_heap();
+        bh.insert(-1,'b');
+        bh.print_heap();
+        bh.insert(3,'c');
+        bh.print_heap();
+        bh.insert(0,'d');
+        bh.print_heap();
     }
 
 }
