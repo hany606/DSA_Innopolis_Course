@@ -82,6 +82,7 @@ public class Main {
         }
 
         private void insert(Node<K,V> no){
+            boolean inserted = true;
 
             if(list.size() == 0){
                 System.out.println("INSERT0");
@@ -96,12 +97,13 @@ public class Main {
                 this.merge_tree();
             }
             else if(tmp_node.getChildren().size() < no.getChildren().size()){
+                System.out.println("Insert--Traverse--Merge");
                 list.push(tmp_node);
-                int heap_size = this.list.size();
+                int heap_size = list.size();
                 Stack<Node<K,V>> tmp_queue = new Stack<>();
                 for(int i = 0; i < heap_size; i++){
-                    this.print_heap();
-                    if(this.list.size() == 1)
+                    print_heap();
+                    if(this.list.size() == 0)
                         break;
                     Node<K,V> tmp_node2 = list.pop();
                     System.out.println(tmp_node2.getKey());
@@ -110,50 +112,41 @@ public class Main {
                     int tmp_node_list_size = tmp_node2.getChildren().size();
                     System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
                     if(tmp_node_list_size < n_list_size){
-                        System.out.println("asodapodm");
-                        list.push(no);
-                        list.push(tmp_node2);
-                        break;
+                        System.out.println("Down");
+                        tmp_queue.push(tmp_node2);
+                        inserted = false;
+//                        list.push(no);
+//                        list.push(tmp_node2);
+//                        break;
                     }
                     else if(tmp_node_list_size > n_list_size){
+                        System.out.println("Correct");
                         //move down
 //                    tmp_queue.add(tmp_node);
                         list.push(tmp_node2);
                         list.push(no);
+                        inserted = true;
+                        break;
                     }
-                    else{
-                        //real merge
-                        System.out.println("---Real Merge---");
-                        if(tmp_node.getKey().compareTo(no.getKey()) < 0){
-//                        System.out.println("TMP GREATER");
-                            ArrayList<Node<K,V>> tmp_list = no.getChildren();
-                            tmp_list.add(tmp_node2);
-                            list.push(no);
-//                        tmp_node.setChildren(tmp_list); //cycle!!!!!!
-                        }
-                        else{   // if(tmp_node.getKey().compareTo(n.getKey()) > 0)  //n.key smaller
-//                        System.out.println("OTHER");
-                            ArrayList<Node<K,V>> tmp_list = tmp_node.getChildren();
-                            tmp_list.add(no);
-                            list.push(tmp_node);
-//                        tmp_node.setChildren(tmp_list);
-//                        System.out.println(tmp_list);
-                        }
-
+                    else if(tmp_node_list_size == n_list_size){
+                        System.out.println("Correct pos equal");
+                        list.push(tmp_node2);
+                        list.push(no);
+                        inserted = true;
+                        merge_tree();
                     }
-//                list.push(tmp_node);
-//                tmp_queue.add(tmp_node);
                 }
+
+                if(!inserted)
+                    list.push(no);
                 int tmp_queue_size = tmp_queue.size();
                 for(int i = 0; i < tmp_queue_size; i++){
                     list.push(tmp_queue.pop());
                 }
 
-                System.out.println("asdpamdpo;sas,od,asp");
+                System.out.println("inside insert");
                 print_heap();
-                System.out.println("asdpamdpo;sas,od,asp");
-
-                merge_tree();
+                // ->1. #1(<10,d><0,d>/) ->2. #3(<9,c><7,d>/<5,a><-4,b>/<3,c><0,d>/<1,a><-1,b>/)
             }
             else{
                 System.out.println("INSERT--NORMAL");
@@ -168,12 +161,59 @@ public class Main {
         }
         @Override
         public Node max(){
-
-            return null;
+            int heap_size = list.size();
+            if(heap_size == 0){
+                //Raise error there is no max
+//                return;
+            }
+            Node<K,V> mx = list.peek();
+            Stack<Node<K,V>> tmp_stack = new Stack<>();
+            for(int i =0; i < heap_size; i++){
+                Node<K,V> tmp_node = list.pop();
+                tmp_stack.push(tmp_node);
+                if(mx.getKey().compareTo(tmp_node.getKey()) < 0){
+                    mx = tmp_node;
+                }
+            }
+            int tmp_stack_size = tmp_stack.size();
+            for(int i = 0; i < tmp_stack_size; i++){
+                list.push(tmp_stack.pop());
+            }
+            return mx;
         }
         @Override
         public void removeMax(){
 
+            int heap_size = list.size();
+            Stack<Node<K,V>> tmp_stack = new Stack<>();
+            Node<K,V> mx = max();
+            for(int i =0; i < heap_size; i++){
+                Node<K,V> tmp_node = list.pop();
+                if(mx.getKey().compareTo(tmp_node.getKey()) == 0){
+                    int children_size = mx.getChildren().size();
+                    System.out.println("as;dmaspdomasd");
+                    System.out.println(children_size);
+                    for(int x = 0; x < children_size; x++){
+                        //extract all the trees, then, merge
+                        System.out.println(x);
+                        Node<K,V> tmp_tree = mx.getChildren().get(x);
+                        insert(tmp_tree);
+                        System.out.println("--==-=--=");
+                        print_heap();
+                        System.out.println("--==-=--=");
+                    }
+                    break;
+                }
+                tmp_stack.push(tmp_node);
+            }
+
+            int tmp_stack_size = tmp_stack.size();
+            for(int i = 0; i < tmp_stack_size; i++){
+                insert(tmp_stack.pop());
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^66");
+            print_heap();
+//            merge_tree();
         }
         private void merge_tree(){       //Node<K,V>
             int heap_size = this.list.size();
@@ -237,8 +277,8 @@ public class Main {
                 //extract all the trees, then, merge
                 Node<K,V> tmp_tree = (Node<K, V>) h.getList().pop();
                 this.insert(tmp_tree);
-                merge_tree();
             }
+            merge_tree();
         }
 
         private void print_tree(Node<K,V> n){
@@ -310,6 +350,12 @@ public class Main {
         bh.insert(0,'d');
         System.out.println("Final -----");
         bh.print_heap();
+        bh.insert(3,'d');
+        System.out.println("Final -----");
+        bh.print_heap();
+//        SIZE: 3
+//        ->1. #0(<3,d>/) ->2. #1(<10,d><0,d>/) ->3. #2(<3,c><0,d>/<1,a><-1,b>/)
+
 
         BinomialHeap<Integer,Character> bh2 = new BinomialHeap<>();
         bh2.insert(5,'a');
@@ -324,11 +370,27 @@ public class Main {
         bh2.insert(7,'d');
         System.out.println("Final -----");
         bh2.print_heap();
+        bh2.insert(3,'c');
+        bh2.print_heap();
+
+//        SIZE: 2
+//        ->1. #0(<3,c>/) ->2. #2(<9,c><7,d>/<5,a><-4,b>/)
 
         System.out.println("*****************");
         bh.merge(bh2);
         bh.print_heap();
+        System.out.println("*****************");
+//        SIZE: 2
+//         ->1. #2(<9,c><7,d>/<5,a><-4,b>/) ->2. #3(<10,d><0,d>/<3,d><3,c>/<3,c><0,d>/<1,a><-1,b>/)
 
+
+
+        bh.removeMax();
+        bh.print_heap();
+
+
+//        SIZE: 3
+//        ->1. #0(<0,d>/) ->2. #1(<3,d><3,c>/) ->3. #3(<9,c><7,d>/<5,a><-4,b>/<3,c><0,d>/<1,a><-1,b>/)
     }
 
 }
