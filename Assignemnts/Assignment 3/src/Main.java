@@ -364,7 +364,7 @@ public class Main {
         // write your code here
 
         Scanner input = new Scanner(System.in);
-        SimpleDateFormat date_format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat date_format = new SimpleDateFormat("dd.MM.yy");
 //        Date d = date_format.parse("13.11.1999");
 //        System.out.println(date_format.format(d));
 //
@@ -412,7 +412,7 @@ public class Main {
         Collections.sort(time_list);
 
         for(int i = 0; i < diff_time; i++){
-            System.out.printf("TODOList %s\n",time_list.get(i).toString());
+            System.out.printf("TODOList %s\n",date_format.format(time_list.get(i)));
             Stack<Task> tmp_stack = new Stack<>();
             for(int x = 0; x < current_tasks; x++){
                 Node<Integer,Task> tmp_n = todo_list.max();
