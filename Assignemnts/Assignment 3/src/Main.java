@@ -96,9 +96,9 @@ public class Main {
                 this.merge_tree();
             }
             else if(tmp_node.getChildren().size() < no.getChildren().size()){
+                list.push(tmp_node);
                 int heap_size = this.list.size();
                 Stack<Node<K,V>> tmp_queue = new Stack<>();
-                tmp_queue.push(tmp_node);
                 for(int i = 0; i < heap_size; i++){
                     this.print_heap();
                     if(this.list.size() == 1)
@@ -148,6 +148,12 @@ public class Main {
                 for(int i = 0; i < tmp_queue_size; i++){
                     list.push(tmp_queue.pop());
                 }
+
+                System.out.println("asdpamdpo;sas,od,asp");
+                print_heap();
+                System.out.println("asdpamdpo;sas,od,asp");
+
+                merge_tree();
             }
             else{
                 System.out.println("INSERT--NORMAL");
@@ -193,7 +199,7 @@ public class Main {
                     //move down
 //                    tmp_queue.add(tmp_node);
                     list.push(tmp_node);
-                    list.push(n);
+                    tmp_queue.push(n);
                 }
                 else{
                     //real merge
