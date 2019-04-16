@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -69,7 +71,7 @@ public class Main {
 
         void removeMax();
 
-        void merge(BinomialHeap h); //It will be mistake
+        void merge(MergeableHeap h); //It will be mistake
 
     }
 
@@ -85,34 +87,34 @@ public class Main {
             boolean inserted = true;
 
             if(list.size() == 0){
-                System.out.println("INSERT0");
+//                System.out.println("INSERT0");
                 list.push(no);
                 return;
             }
             Node<K,V> tmp_node = list.pop();
             if(tmp_node.getChildren().size() == no.getChildren().size()){
-                System.out.println("INSERT--Normal--Merge");
+//                System.out.println("INSERT--Normal--Merge");
                 list.push(tmp_node);
                 list.push(no);
                 this.merge_tree();
             }
             else if(tmp_node.getChildren().size() < no.getChildren().size()){
-                System.out.println("Insert--Traverse--Merge");
+//                System.out.println("Insert--Traverse--Merge");
                 list.push(tmp_node);
                 int heap_size = list.size();
                 Stack<Node<K,V>> tmp_queue = new Stack<>();
                 for(int i = 0; i < heap_size; i++){
-                    print_heap();
+//                    print_heap();
                     if(this.list.size() == 0)
                         break;
                     Node<K,V> tmp_node2 = list.pop();
-                    System.out.println(tmp_node2.getKey());
-                    System.out.println(no.getKey());
+//                    System.out.println(tmp_node2.getKey());
+//                    System.out.println(no.getKey());
                     int n_list_size = no.getChildren().size();
                     int tmp_node_list_size = tmp_node2.getChildren().size();
-                    System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
+//                    System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
                     if(tmp_node_list_size < n_list_size){
-                        System.out.println("Down");
+//                        System.out.println("Down");
                         tmp_queue.push(tmp_node2);
                         inserted = false;
 //                        list.push(no);
@@ -120,7 +122,7 @@ public class Main {
 //                        break;
                     }
                     else if(tmp_node_list_size > n_list_size){
-                        System.out.println("Correct");
+//                        System.out.println("Correct");
                         //move down
 //                    tmp_queue.add(tmp_node);
                         list.push(tmp_node2);
@@ -129,7 +131,7 @@ public class Main {
                         break;
                     }
                     else if(tmp_node_list_size == n_list_size){
-                        System.out.println("Correct pos equal");
+//                        System.out.println("Correct pos equal");
                         list.push(tmp_node2);
                         list.push(no);
                         inserted = true;
@@ -144,12 +146,12 @@ public class Main {
                     list.push(tmp_queue.pop());
                 }
 
-                System.out.println("inside insert");
-                print_heap();
+//                System.out.println("inside insert");
+//                print_heap();
                 // ->1. #1(<10,d><0,d>/) ->2. #3(<9,c><7,d>/<5,a><-4,b>/<3,c><0,d>/<1,a><-1,b>/)
             }
             else{
-                System.out.println("INSERT--NORMAL");
+//                System.out.println("INSERT--NORMAL");
 
                 list.push(tmp_node);
                 list.push(no);
@@ -191,16 +193,16 @@ public class Main {
                 Node<K,V> tmp_node = list.pop();
                 if(mx.getKey().compareTo(tmp_node.getKey()) == 0){
                     int children_size = mx.getChildren().size();
-                    System.out.println("as;dmaspdomasd");
-                    System.out.println(children_size);
+//                    System.out.println("as;dmaspdomasd");
+//                    System.out.println(children_size);
                     for(int x = 0; x < children_size; x++){
                         //extract all the trees, then, merge
-                        System.out.println(x);
+//                        System.out.println(x);
                         Node<K,V> tmp_tree = mx.getChildren().get(x);
                         insert(tmp_tree);
-                        System.out.println("--==-=--=");
-                        print_heap();
-                        System.out.println("--==-=--=");
+//                        System.out.println("--==-=--=");
+//                        print_heap();
+//                        System.out.println("--==-=--=");
                     }
                     break;
                 }
@@ -211,26 +213,26 @@ public class Main {
             for(int i = 0; i < tmp_stack_size; i++){
                 insert(tmp_stack.pop());
             }
-            System.out.println("^^^^^^^^^^^^^^^^^66");
-            print_heap();
+//            System.out.println("^^^^^^^^^^^^^^^^^66");
+//            print_heap();
 //            merge_tree();
         }
         private void merge_tree(){       //Node<K,V>
             int heap_size = this.list.size();
             Stack<Node<K,V>> tmp_queue = new Stack<>();
             for(int i = 0; i < heap_size; i++){
-                this.print_heap();
+//                print_heap();
                 if(this.list.size() == 1)
                     break;
                 Node<K,V> n = list.pop();
                 Node<K,V> tmp_node = list.pop();
-                System.out.println(tmp_node.getKey());
-                System.out.println(n.getKey());
+//                System.out.println(tmp_node.getKey());
+//                System.out.println(n.getKey());
                 int n_list_size = n.getChildren().size();
                 int tmp_node_list_size = tmp_node.getChildren().size();
-                System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
+//                System.out.printf("TMP_LIST_SIZE:%d\n",tmp_node_list_size);
                 if(tmp_node_list_size < n_list_size){
-                    System.out.println("asodapodm");
+//                    System.out.println("asodapodm");
                     list.push(n);
                     list.push(tmp_node);
                     break;
@@ -243,7 +245,7 @@ public class Main {
                 }
                 else{
                     //real merge
-                    System.out.println("---Real Merge---");
+//                    System.out.println("---Real Merge---");
                     if(tmp_node.getKey().compareTo(n.getKey()) < 0){
 //                        System.out.println("TMP GREATER");
                         ArrayList<Node<K,V>> tmp_list = n.getChildren();
@@ -271,11 +273,11 @@ public class Main {
 
         }
         @Override
-        public void merge(BinomialHeap h){
-            int heap_size = h.getList().size();
+        public void merge(MergeableHeap h){
+            int heap_size = ((BinomialHeap)h).getList().size();
             for(int i = 0; i < heap_size; i++){
                 //extract all the trees, then, merge
-                Node<K,V> tmp_tree = (Node<K, V>) h.getList().pop();
+                Node<K,V> tmp_tree = (Node<K, V>) ((BinomialHeap)h).getList().pop();
                 this.insert(tmp_tree);
             }
             merge_tree();
@@ -322,75 +324,185 @@ public class Main {
             }
         }
     }
-    public static void main(String[] args) {
+
+    public static class Task{
+        private int priority_value;
+        private String description;
+        private Date time;
+
+        public Task(int priority_value, String description, Date time){
+            this.priority_value = priority_value;
+            this.description = description;
+            this.time = time;
+        }
+
+        public int getPriority_value() {
+            return priority_value;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public Date getTime() {
+            return time;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setPriority_value(int priority_value) {
+            this.priority_value = priority_value;
+        }
+
+        public void setTime(Date time) {
+            this.time = time;
+        }
+    }
+    public static void main(String[] args) throws ParseException {
         // write your code here
 
         Scanner input = new Scanner(System.in);
+        SimpleDateFormat date_format = new SimpleDateFormat("dd.MM.yyyy");
+//        Date d = date_format.parse("13.11.1999");
+//        System.out.println(date_format.format(d));
+//
+        BinomialHeap<Integer,Task> todo_list = new BinomialHeap();
+        ArrayList<Date> time_list = new ArrayList<>();
+
+        int n = input.nextInt();
+        String time0 = "";
+        int current_tasks = 0;
+        int diff_time = 1;
+        for(int i = 0; i < n; i++){
+            String time = input.next();
+            if(Character.isDigit(time.charAt(0)) == false) {
+                String delete_time = input.next();
+                Stack<Task> tmp_stack = new Stack<>();
+                for (int x = 0; x < current_tasks; x++) {
+                    Node<Integer, Task> tmp_n = todo_list.max();
+                    todo_list.removeMax();
+                    if (tmp_n.getValue().getTime().equals(date_format.parse(delete_time))) {
+                        break;
+                    }
+                    tmp_stack.push(tmp_n.getValue());
+                }
+                int stack_size = tmp_stack.size();
+                for(int x = 0 ; x < stack_size; x++){
+                    Task tmp_task = tmp_stack.pop();
+                    todo_list.insert(tmp_task.getPriority_value(),tmp_task);
+                }
+                current_tasks--;
+                continue;
+            }
+            String description = input.next();
+            int priority_value = input.nextInt();
+            todo_list.insert(priority_value, new Task(priority_value,description,date_format.parse(time)));
+            current_tasks++;
+            if(i == 0)
+                time_list.add(date_format.parse(time));
+            if(i > 0 && !time.equals(time0)) {
+                diff_time++;
+                time_list.add(date_format.parse(time));
+            }
+            time0 = time;
+        }
+
+        Collections.sort(time_list);
+
+        for(int i = 0; i < diff_time; i++){
+            System.out.printf("TODOList %s\n",time_list.get(i).toString());
+            Stack<Task> tmp_stack = new Stack<>();
+            for(int x = 0; x < current_tasks; x++){
+                Node<Integer,Task> tmp_n = todo_list.max();
+                tmp_stack.push(tmp_n.getValue());
+                if(tmp_n.getValue().getTime().equals(time_list.get(i)))
+                    System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
+
+                todo_list.removeMax();
+            }
+
+            int stack_size = tmp_stack.size();
+            for(int x = 0 ; x < stack_size; x++){
+                Task tmp_task = tmp_stack.pop();
+                todo_list.insert(tmp_task.getPriority_value(),tmp_task);
+            }
+        }
+
+        System.out.println("TODOList");
+        for(int i = 0; i < current_tasks; i++){
+            Node<Integer,Task> tmp_n = todo_list.max();
+            System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
+            todo_list.removeMax();
+        }
+
+
 
 
 
 
         //Test Cases
-        BinomialHeap<Integer,Character> bh = new BinomialHeap<>();
-        bh.insert(1,'a');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(-1,'b');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(3,'c');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(0,'d');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(10,'d');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(0,'d');
-        System.out.println("Final -----");
-        bh.print_heap();
-        bh.insert(3,'d');
-        System.out.println("Final -----");
-        bh.print_heap();
-//        SIZE: 3
-//        ->1. #0(<3,d>/) ->2. #1(<10,d><0,d>/) ->3. #2(<3,c><0,d>/<1,a><-1,b>/)
-
-
-        BinomialHeap<Integer,Character> bh2 = new BinomialHeap<>();
-        bh2.insert(5,'a');
-        System.out.println("Final -----");
-        bh2.print_heap();
-        bh2.insert(-4,'b');
-        System.out.println("Final -----");
-        bh2.print_heap();
-        bh2.insert(9,'c');
-        System.out.println("Final -----");
-        bh2.print_heap();
-        bh2.insert(7,'d');
-        System.out.println("Final -----");
-        bh2.print_heap();
-        bh2.insert(3,'c');
-        bh2.print_heap();
-
-//        SIZE: 2
-//        ->1. #0(<3,c>/) ->2. #2(<9,c><7,d>/<5,a><-4,b>/)
-
-        System.out.println("*****************");
-        bh.merge(bh2);
-        bh.print_heap();
-        System.out.println("*****************");
-//        SIZE: 2
-//         ->1. #2(<9,c><7,d>/<5,a><-4,b>/) ->2. #3(<10,d><0,d>/<3,d><3,c>/<3,c><0,d>/<1,a><-1,b>/)
-
-
-
-        bh.removeMax();
-        bh.print_heap();
-
-
-//        SIZE: 3
-//        ->1. #0(<0,d>/) ->2. #1(<3,d><3,c>/) ->3. #3(<9,c><7,d>/<5,a><-4,b>/<3,c><0,d>/<1,a><-1,b>/)
+//        BinomialHeap<Integer,Character> bh = new BinomialHeap<>();
+//        bh.insert(1,'a');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(-1,'b');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(3,'c');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(0,'d');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(10,'d');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(0,'d');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(3,'d');
+////        System.out.println("Final -----");
+//        bh.print_heap();
+////        SIZE: 3
+////        ->1. #0(<3,d>/) ->2. #1(<10,d><0,d>/) ->3. #2(<3,c><0,d>/<1,a><-1,b>/)
+//
+//
+//        BinomialHeap<Integer,Character> bh2 = new BinomialHeap<>();
+//        bh2.insert(5,'a');
+////        System.out.println("Final -----");
+//        bh2.print_heap();
+//        bh2.insert(-4,'b');
+////        System.out.println("Final -----");
+//        bh2.print_heap();
+//        bh2.insert(9,'c');
+////        System.out.println("Final -----");
+//        bh2.print_heap();
+//        bh2.insert(7,'d');
+////        System.out.println("Final -----");
+//        bh2.print_heap();
+//        bh2.insert(3,'c');
+//        bh2.print_heap();
+//
+////        SIZE: 2
+////        ->1. #0(<3,c>/) ->2. #2(<9,c><7,d>/<5,a><-4,b>/)
+//
+//        System.out.println("*****************");
+//        bh.merge(bh2);
+//        bh.print_heap();
+//        System.out.println("*****************");
+////        SIZE: 2
+////         ->1. #2(<9,c><7,d>/<5,a><-4,b>/) ->2. #3(<10,d><0,d>/<3,d><3,c>/<3,c><0,d>/<1,a><-1,b>/)
+//
+//
+//
+//        bh.removeMax();
+//        bh.print_heap();
+//
+//
+////        SIZE: 3
+////        ->1. #0(<0,d>/) ->2. #1(<3,d><3,c>/) ->3. #3(<9,c><7,d>/<5,a><-4,b>/<3,c><0,d>/<1,a><-1,b>/)
     }
 
 }
