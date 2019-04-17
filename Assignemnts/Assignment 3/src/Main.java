@@ -7,6 +7,7 @@ import java.util.*;
  * Data Structure & Algorithms Course (DSA)
  * Innopolis University, Sprinng 2019
  * Assignment 3
+ * Submission Link:
  * @author Hany Hamed
  */
 
@@ -15,8 +16,6 @@ import java.util.*;
  * https://www.wikiwand.com/en/Mergeable_heap
  * https://brilliant.org/wiki/binomial-heap/
  * https://www.cs.usfca.edu/~galles/visualization/BinomialQueue.html
- * https://www.tutorialspoint.com/java/java_arraylist_class.htm
- *
  */
 
 public class Main {
@@ -130,10 +129,10 @@ public class Main {
      */
 
     public static class BinomialHeap<K extends Comparable<K>, V> implements MergeableHeap<K,V>{
-        private Stack<Node<K,V>> list = new Stack<>();      //Stack to store the roots of the binomial trees
+        private ArrayList<Node<K,V>> list = new ArrayList<>();      //Stack to store the roots of the binomial trees
 
         //getter for the Stack with private access
-        private Stack<Node<K, V>> getList() {
+        private ArrayList<Node<K, V>> getList() {
             return list;
         }
 
@@ -145,86 +144,19 @@ public class Main {
          *            T(n) = O(lgn) || O(lgn+lgn) || 1  -> T(n) = O(lgn) according if we insert trees with 1-order or d-order
          */
         private void insert(Node<K,V> no){
-            boolean inserted = true;    //Flag to check if the node is inserted or not
 
             //Check the size of the Stack if it is zero, push the first the element and first tree in the heap
             if(list.size() == 0){
-                list.push(no);
+                list.add(0,no);
                 return;
             }
-            Node<K,V> tmp_node = list.pop();    //If there at least one element, pop it
-            // the size of the inserted tree is equal to the exist tree, merge them
-            if(tmp_node.getChildren().size() == no.getChildren().size()){
-                //$Complexity proof$ This if will be T(n) = O(merge_tree) = O(lgn)
-                list.push(tmp_node);    //push the original
-                list.push(no);          //push the new inserted one
-                merge_tree();      //merge the trees
-            }
-            //if the size of the inserted tree is greater, go down and inserted in its right position
-            else if(tmp_node.getChildren().size() < no.getChildren().size()){
-
-                list.push(tmp_node);            //push the original one
-
-                int heap_size = list.size();    //get the size of the stack
-                Stack<Node<K,V>> tmp_stack = new Stack<>(); //create a tmp stack in order to traverse the heap, and store the poped element, then push them back again
-                //Traverse on the trees in the heap
-                for(int i = 0; i < heap_size; i++){
-                    //$Complexity proof$ This if will be T(n) = O(lgn) as it is just traversing the heads of the trees inside the heap
-
-                    //If it is the end of the heap, break
-                    if(list.size() == 0)
-                        break;
-                    Node<K,V> tmp_node2 = list.pop();   //if not the end, continue traversing
-
-                    int n_list_size = no.getChildren().size();  //get the degree of the inserted tree
-                    int tmp_node_list_size = tmp_node2.getChildren().size();    //get the degree of the current traversing tree
-                    //if the inserted tree is greater than the current, continue traversing
-                    if(tmp_node_list_size < n_list_size){
-                        tmp_stack.push(tmp_node2);  //Push the current node in the stack to return it back later in order to save the state of the heap in the end after traversing
-                        inserted = false;   //set the flag to false
-                    }
-                    //if the inserted tree is less than the current, then it is in its correct position, put it in its place
-                    else if(tmp_node_list_size > n_list_size){
-                        list.push(tmp_node2);   //push the greatest first
-                        list.push(no);
-                        inserted = true;
-                        break;
-                    }
-                    //if the inserted tree is equal to the current, then it is in its correct position, put it in its place, then merge it
-                    else if(tmp_node_list_size == n_list_size){
-                        //If the second is smaller, put the first one is first, then put the second as child for the first
-                        if(tmp_node.getKey().compareTo(no.getKey()) < 0){
-                            ArrayList<Node<K,V>> tmp_list = no.getChildren();
-                            tmp_list.add(tmp_node);
-                            list.push(no);
-                        }
-                        //If the first is smaller or equal, put the second one is first, then put the first as child for the second
-                        else{
-                            ArrayList<Node<K,V>> tmp_list = tmp_node.getChildren();
-                            tmp_list.add(no);
-                            list.push(tmp_node);
-                        }
-                        inserted = true;
-                        break;
-                    }
-
-                    //Here optimize with merge tree, remove it and put its code
-                }
-                //if not inserted yet, thats mean that the inserted tree is the greater than any tree in the heap, push it in the end
-                if(!inserted)
-                    list.push(no);
-
-                //Push in the list again in the correct order, return the list in its original order after traversing
-                //$Complexity proof$ This part will be T(n) = O(lgn) as it is just push again the heads of the trees
-                int tmp_queue_size = tmp_stack.size();
-                for(int i = 0; i < tmp_queue_size; i++){
-                    list.push(tmp_stack.pop()); //pop from the stakc, then pop it in the list
-                }
+            if(list.get(0).getChildren().size() <= no.getChildren().size()) {
+                list.add(0,no);
+                merge_tree();
             }
             //if the size of the inserted tree is less, just push the current then push the inserted tree
             else{
-                list.push(tmp_node);
-                list.push(no);
+                list.add(0,no);
             }
 
         }
@@ -238,6 +170,9 @@ public class Main {
             insert(new Node<>(k,v));
         }
 
+
+
+
         /**
          * This method is a private method in order to get the maximum element in the heap in a Node object
          * another public method will use it as a wrapper to use it publicly to get the max but in Pair object
@@ -246,31 +181,26 @@ public class Main {
          * T(n) = O(lgn + lgn) = O(lgn) -> just traversing on the heads of the tree
          * as the number of heads is always = lgn
          */
-        private Node<K,V> _max(){
+        private Pair<Integer,Node<K,V>> _max(){
             int heap_size = list.size();
             if(heap_size == 0){
                 throw new NoSuchElementException();    //Raise Error that there is no element in the heap, it is empty
             }
-            Node<K,V> mx = list.peek();                     //see the first root tree in the heap
-            Stack<Node<K,V>> tmp_stack = new Stack<>();     //Create tmp stack to traverse the heap
+            Node<K,V> mx = list.get(0);                     //see the first root tree in the heap
+            int mxind = 0;
             //Traverse the heap
             for(int i =0; i < heap_size; i++){
                 //Pop from the original list, pop it in the tmp stack
-                Node<K,V> tmp_node = list.pop();
-                tmp_stack.push(tmp_node);
+                Node<K,V> tmp_node = list.get(i);
                 //If we found greater element, get it
                 if(mx.getKey().compareTo(tmp_node.getKey()) < 0){
                     mx = tmp_node;
+                    mxind = i;
                 }
             }
-            //Push again in the original stack the elements that we have pop form it
-            int tmp_stack_size = tmp_stack.size();
-            for(int i = 0; i < tmp_stack_size; i++){
-                list.push(tmp_stack.pop());
-            }
-
-            return mx;  // return the maximum
+            return new Pair<>(mxind,mx);  // return the maximum
         }
+
 
         /**
          * Just a public wrapper method for the private method of max with the required interface
@@ -278,7 +208,7 @@ public class Main {
          */
         @Override
         public Pair<K,V> max(){
-            Node<K,V> mx = _max();
+            Node<K,V> mx = _max().getValue();
             return new Pair<>(mx.getKey(),mx.getValue());
         }
 
@@ -290,109 +220,20 @@ public class Main {
 
         @Override
         public void removeMax(){
-
             int heap_size = list.size();        //get the size of the heap
             if(heap_size == 0){
                 throw new NoSuchElementException();    //Raise Error that there is no element in the heap, it is empty
             }
-            Stack<Node<K,V>> tmp_stack = new Stack<>(); //crete a tmp stack in order to traverse the heap
-            Stack<Node<K,V>> tmp_stack2 = new Stack<>();
-            Node<K,V> mx = _max();  //get the maximum element in the heap which will be one of the roots of the trees
+
+            Pair<Integer,Node<K,V>> mx = _max();  //get the maximum element in the heap which will be one of the roots of the trees
             //Traverse the heap
-            for(int i =0; i < heap_size; i++){
-                Node<K,V> tmp_node = list.pop();    //pop the element
-                //Check if the tree's root is the maximum or not, if it is, delete it, insert the children, merge the heaps
-                if(mx.getKey().compareTo(tmp_node.getKey()) == 0){
-                    int children_size = mx.getChildren().size();
-                    //extract all the trees, then inserted,then merge them inside the insertion
-                    for(int x = 0; x < children_size; x++){
-                        Node<K,V> tmp_tree = mx.getChildren().get(x);
-//                        insert(tmp_tree);
-                        tmp_stack2.push(tmp_tree);
-                    }
-                    break;
-                }
-                tmp_stack.push(tmp_node);   //push it in the tmp list in order to restore it back, if it wasn't the maximum
+            int mxind = mx.getKey();
+            Node<K,V> need = list.get(mxind);
+            list.remove(mxind);
+            for(int i =0; i < need.getChildren().size(); i++) {
+                insert(need.getChildren().get(i));
             }
-
-
-            //Restore the original state of the heap without the maximum element in its correct position + the extracted trees,
-            int tmp_stack_size = tmp_stack.size();
-            int tmp_stack2_size = tmp_stack2.size();
-            for(int i = 0; i < tmp_stack_size + tmp_stack2_size; i++){
-                if(tmp_stack.size() == 0 && tmp_stack2.size() == 0)
-                    break;
-                if(tmp_stack.size() == 0){
-                    list.push(tmp_stack2.pop());
-                    continue;
-                }
-                if(tmp_stack2.size() == 0 ){
-                    list.push(tmp_stack.pop());
-                    continue;
-                }
-                if(tmp_stack.size() > 0 && tmp_stack2.size() > 0){
-                    Node<K,V> tmp_node1 = tmp_stack.peek();
-                    Node<K,V> tmp_node2 = tmp_stack2.peek();
-                    if(tmp_node1.getChildren().size() > tmp_node2.getChildren().size()){
-                        list.push(tmp_stack.pop());
-                    }
-                    else if(tmp_node1.getChildren().size() < tmp_node2.getChildren().size()){
-                        list.push(tmp_stack2.pop());
-                    }
-                    else{
-                        //If the second is smaller, put the first one is first, then put the second as child for the first
-                        if(tmp_node1.getKey().compareTo(tmp_node2.getKey()) < 0){
-                            ArrayList<Node<K,V>> tmp_list = tmp_node2.getChildren();
-                            tmp_list.add(tmp_node1);
-                            list.push(tmp_node2);
-                            tmp_stack2.pop();
-                            tmp_stack.pop();
-                        }
-                        //If the first is smaller or equal, put the second one is first, then put the first as child for the second
-                        else{
-                            ArrayList<Node<K,V>> tmp_list = tmp_node1.getChildren();
-                            tmp_list.add(tmp_node2);
-                            list.push(tmp_node1);
-                            tmp_stack.pop();
-                            tmp_stack2.pop();
-                        }
-
-                    }
-                }
-            }
-
         }
-//        @Override
-//        public void removeMax(){
-//
-//            int heap_size = list.size();        //get the size of the heap
-//            if(heap_size == 0){
-//                throw new NoSuchElementException();    //Raise Error that there is no element in the heap, it is empty
-//            }
-//            Stack<Node<K,V>> tmp_stack = new Stack<>(); //crete a tmp stack in order to traverse the heap
-//            Node<K,V> mx = _max();  //get the maximum element in the heap which will be one of the roots of the trees
-//            //Traverse the heap
-//            for(int i =0; i < heap_size; i++){
-//                Node<K,V> tmp_node = list.pop();    //pop the element
-//                //Check if the tree's root is the maximum or not, if it is, delete it, insert the children, merge the heaps
-//                if(mx.getKey().compareTo(tmp_node.getKey()) == 0){
-//                    int children_size = mx.getChildren().size();
-//                    //extract all the trees, then inserted,then merge them inside the insertion
-//                    for(int x = 0; x < children_size; x++){
-//                        Node<K,V> tmp_tree = mx.getChildren().get(x);
-//                        insert(tmp_tree);
-//                    }
-//                    break;
-//                }
-//                tmp_stack.push(tmp_node);   //push it in the tmp list in order to restore it back, if it wasn't the maximum
-//            }
-//
-//            //Restore the original state of the heap without the maximum element in its correct position,
-//            int tmp_stack_size = tmp_stack.size();
-//            for(int i = 0; i < tmp_stack_size; i++){
-//                insert(tmp_stack.pop());    //using insertion instead of push in order to merge too
-//            }
-//        }
         /**
          * This method is to merge the trees of the binomial heap, and place them in its correct position
          * $Complexity proof$ This if will be T(n) = O(lgn [Traversing] + lgn [Restoring the original state])
@@ -400,50 +241,38 @@ public class Main {
          */
         private void merge_tree(){
             //Traverse the heap, if there are two equal trees , merge them
-            int heap_size = list.size();
-            Stack<Node<K,V>> tmp_stack = new Stack<>();     //create tmp stack for the traversing
-            for(int i = 0; i < heap_size; i++){
-                if(this.list.size() == 1)
+            for(int i = 0; i < list.size()-1; i++){
+
+                if(list.size() == 1)
                     break;
-                Node<K,V> n = list.pop();
-                Node<K,V> tmp_node = list.pop();
+                Node<K,V> n = list.get(i);
+                Node<K,V> tmp_node = list.get(i+1);
 
                 int n_list_size = n.getChildren().size();       //get the degree of the first node
                 int tmp_node_list_size = tmp_node.getChildren().size();     //get the degree of the second node
 
-                //Just correct the order of the tree, if they are not equal
                 if(tmp_node_list_size < n_list_size){
-                    list.push(n);
-                    list.push(tmp_node);
-                    break;
-                }
-                else if(tmp_node_list_size > n_list_size){
-
-                    list.push(tmp_node);
-                    tmp_stack.push(n);
-                    break;
+                    list.remove(i);
+                    list.add(i,tmp_node);
+                    list.remove(i+1);
+                    list.add(i+1,n);
                 }
                 //If they are equal, merge them
-                else{
+                if(tmp_node_list_size == n_list_size){
                     //If the second is smaller, put the first one is first, then put the second as child for the first
                     if(tmp_node.getKey().compareTo(n.getKey()) < 0){
-                        ArrayList<Node<K,V>> tmp_list = n.getChildren();
-                        tmp_list.add(tmp_node);
-                        list.push(n);
+                        (list.get(i)).getChildren().add(tmp_node);
+                        list.remove(i+1);
+                        i--;
                     }
                     //If the first is smaller or equal, put the second one is first, then put the first as child for the second
                     else{
-                        ArrayList<Node<K,V>> tmp_list = tmp_node.getChildren();
-                        tmp_list.add(n);
-                        list.push(tmp_node);
+                        (list.get(i+1)).getChildren().add(n);
+                        list.remove(i);
+                        i--;
                     }
-
                 }
-            }
-            //restore the original state of the heap
-            int tmp_queue_size = tmp_stack.size();
-            for(int i = 0; i < tmp_queue_size; i++){
-                list.push(tmp_stack.pop());
+
             }
 
         }
@@ -456,15 +285,13 @@ public class Main {
         public void merge(MergeableHeap h){
             //Traverse on the second heap heap
             int heap_size = ((BinomialHeap)h).getList().size();
-            Stack<Node<K,V>> tmp_stack2 = new Stack<>();
 
             for(int i = 0; i < heap_size; i++){
                 //extract all the trees, then, merge
-                Node<K,V> tmp_tree = (Node<K, V>) ((BinomialHeap)h).getList().pop();
-                this.insert(tmp_tree);
+                Node<K,V> tmp_tree = (Node<K, V>) ((BinomialHeap)h).getList().get(i);
+                insert(tmp_tree);
             }
 
-            merge_tree();   // merge the tree in the heap
         }
 
         /**
@@ -492,25 +319,17 @@ public class Main {
          * traverse the heap, and get the root nodes
          */
         public void print_heap(){
-            Stack<Node<K,V>> tmp_list = new Stack<>();
-            int heap_size = this.getList().size();
             System.out.println("-------------------------");
-            System.out.printf("SIZE: %d \n",heap_size);
+            System.out.printf("SIZE: %d \n",list.size());
 
-            for(int i = 0; i < heap_size; i++){
-                Node<K,V> n = this.list.pop();
-                tmp_list.push(n);
+            for(int i = 0; i < list.size(); i++){
+                Node<K,V> n = list.get(i);
                 System.out.printf(" ->%d. #%d(",i+1,n.getChildren().size());
                 print_tree(n);
                 System.out.print(")");
             }
 
             System.out.println("\n-------------------------");
-            //restore the original state of the heap
-            int tmp_size = tmp_list.size();
-            for(int i = 0; i < tmp_size; i++){
-                this.list.push(tmp_list.pop());
-            }
         }
     }
 
@@ -558,66 +377,58 @@ public class Main {
     }
 
     public static void main(String[] args) throws ParseException {
-
+//
         Scanner input = new Scanner(System.in); //Scanner for the input
         SimpleDateFormat date_format = new SimpleDateFormat("dd.MM.yy");    //Set the format of the time as it is in the assignment descripition
 
         BinomialHeap<Integer,Task> todo_list = new BinomialHeap();  //Create Binomial heap for the todolist in order to get always the most important task, and the pritioty level will be the key
-        ArrayList<Date> time_list = new ArrayList<>();              //To store the different times in the list
-//        BinomialHeap<Date, Integer> time_list_bh = new BinomialHeap<>();
+        Map<Date, Pair<BinomialHeap<Integer,Task>,Integer>> sub_todo_list = new TreeMap<>();
 
         int n = input.nextInt();        //Get the number of tasks
         int diff_time = 0;
         int current_tasks = 0;          //counter to store the number of the tasks
         //Get the tasks
         for(int i = 0; i < n; i++){
+//            System.out.println(current_tasks);
             String time = input.next(); //Get the first part
 //            System.out.println(time);
             //If the first character is not a number then it is deletion order
+
             if(Character.isDigit(time.charAt(0)) == false) {
                 String delete_time = input.next();          //get the time of delete
-//                System.out.println(delete_time);
-                Stack<Task> tmp_stack = new Stack<>();      //Create stack to traverse the heap in order to get the most important task in the todolist with this specific date
-                //Traverse the heap
-                for (int x = 0; x < current_tasks; x++) {
-                    Node<Integer, Task> tmp_n = new Node<>(todo_list.max().getKey(),todo_list.max().getValue());
-                    todo_list.removeMax();
-                    //If you found your element, break without pushing in ht tmp stack
-                    if (tmp_n.getValue().getTime().equals(date_format.parse(delete_time))) {
-                        break;
-                    }
-                    tmp_stack.push(tmp_n.getValue());
+                int tmp = sub_todo_list.get(date_format.parse(delete_time)).getValue();
+                if(tmp > 0) {
+                    sub_todo_list.get(date_format.parse(delete_time)).getKey().removeMax();
+                    sub_todo_list.get(date_format.parse(delete_time)).setValue(tmp-1);
+                    current_tasks--;
                 }
-                //Restore the state of the heap
-                int stack_size = tmp_stack.size();
-                for(int x = 0 ; x < stack_size; x++){
-                    Task tmp_task = tmp_stack.pop();
-                    todo_list.insert(tmp_task.getPriority_value(),tmp_task);
-                }
-                current_tasks--;    //decrement the counter of the tasks
                 continue;           //Skip the rest
             }
+
             String description = input.next(); //Get the description of the task
             int priority_value = input.nextInt();   //Get the pritioty level of the task
-            todo_list.insert(priority_value, new Task(priority_value,description,date_format.parse(time))); //insert ot in the heap
+            BinomialHeap<Integer,Task> tmp_bh = new BinomialHeap<>();
+            int tmp = 0;
+            if(sub_todo_list.containsKey(date_format.parse(time))) {
+//                System.out.println("Old");
+                tmp = sub_todo_list.get(date_format.parse(time)).getValue();
+                tmp_bh = sub_todo_list.get(date_format.parse(time)).getKey();
+                sub_todo_list.get(date_format.parse(time)).setValue(tmp+1);
+                tmp_bh.insert(priority_value, new Task(priority_value,description,date_format.parse(time)));
+                sub_todo_list.get(date_format.parse(time)).setKey(tmp_bh);
+//                sub_todo_list.get(date_format.parse(time)).getKey().print_heap();
+            }
+            else {
+//                System.out.println("New");
+                tmp_bh.insert(priority_value, new Task(priority_value, description, date_format.parse(time)));
+                sub_todo_list.put(date_format.parse(time), new Pair<>(tmp_bh, 1));
+//                sub_todo_list.get(date_format.parse(time)).getKey().print_heap();
+            }
             current_tasks++;    //increment the counter
-
-            //Check if the date is already exist or not, if it exist don't store it , if not store it
-            boolean exist = false;
-            for(int x = 0; x < time_list.size(); x++){
-                if(time.equals(date_format.format(time_list.get(x)))){
-                    exist = true;
-                    break;
-                }
-            }
-            if(!exist){
-                diff_time++;    //increment the counter
-                time_list.add(date_format.parse(time));
-//                time_list_bh.insert(date_format.parse(time),i);
-            }
         }
 
-        Collections.sort(time_list);    //Sort the list
+//        todo_list.print_heap();
+
 
 //        System.out.println(diff_time);
 //        for(int i = 0; i < diff_time; i++){
@@ -627,32 +438,21 @@ public class Main {
 //        }
 
 
-        //Traverse on the time list to output the times in the correct order
-        for(int i = 0; i < time_list.size(); i++){
-            System.out.printf("TODOList %s\n",date_format.format(time_list.get(i)));
-            //Traverse the heap and get the specific tasks for the specific date
-            Stack<Task> tmp_stack = new Stack<>();
-            for(int x = 0; x < current_tasks; x++){
-                //Push and pop from the heap to the tmp stack
-                Node<Integer,Task> tmp_n = new Node<>(todo_list.max().getKey(),todo_list.max().getValue());
-                todo_list.removeMax();
-                tmp_stack.push(tmp_n.getValue());
+//        for(Map.Entry<Date,Pair<BinomialHeap<Integer,Task>,Integer>> entry : sub_todo_list.entrySet())
+//            todo_list.merge(entry.getValue().getKey());
 
-                //If they for the specific date, print it
-                if(tmp_n.getValue().getTime().equals(time_list.get(i)))
-                    System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
+        for(Map.Entry<Date,Pair<BinomialHeap<Integer,Task>,Integer>> entry : sub_todo_list.entrySet()) {
+            String key = date_format.format(entry.getKey());
+            System.out.printf("TODOList %s\n",key);
+            for(int i = 0; i < entry.getValue().getValue(); i++){
+                Pair<Integer,Task> tmp = entry.getValue().getKey().max();
+                System.out.printf("\t%s\n", tmp.getValue().getDescription());
+                todo_list.insert(tmp.getKey(),tmp.getValue());
+                entry.getValue().getKey().removeMax();
+
             }
 
-
-            //Restore the original state of the heap
-            int stack_size = tmp_stack.size();
-            for(int x = 0 ; x < stack_size; x++){
-                //Pop then insert
-                Task tmp_task = tmp_stack.pop();
-                todo_list.insert(tmp_task.getPriority_value(),tmp_task);
-            }
         }
-
         //Print the whole todolist
         System.out.println("TODOList");
         for(int i = 0; i < current_tasks; i++){
@@ -660,7 +460,114 @@ public class Main {
             System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
             todo_list.removeMax();
         }
+//
 
+//        ArrayList<Date> time_list = new ArrayList<>();              //To store the different times in the list
+//        BinomialHeap<Date, Integer> time_list_bh = new BinomialHeap<>();
+
+//        int n = input.nextInt();        //Get the number of tasks
+//        int diff_time = 0;
+//        int current_tasks = 0;          //counter to store the number of the tasks
+//        //Get the tasks
+//        for(int i = 0; i < n; i++){
+////            System.out.println(current_tasks);
+//            String time = input.next(); //Get the first part
+////            System.out.println(time);
+//            //If the first character is not a number then it is deletion order
+//
+//            if(Character.isDigit(time.charAt(0)) == false) {
+//                String delete_time = input.next();          //get the time of delete
+//                Stack<Task> tmp_stack = new Stack<>();      //Create stack to traverse the heap in order to get the most important task in the todolist with this specific date
+//                //Traverse the heap
+////                System.out.println(current_tasks);
+//                for (int x = 0; x < current_tasks; x++) {
+//                    Node<Integer, Task> tmp_n = new Node<>(todo_list.max().getKey(),todo_list.max().getValue());
+//                    todo_list.removeMax();
+//                    //If you found your element, break without pushing in ht tmp stack
+////                    System.out.println(date_format.format(tmp_n.getValue().getTime()));
+////                    System.out.println(delete_time);
+//                    if ((date_format.format(tmp_n.getValue().getTime())).equals(delete_time)) {
+////                        System.out.println("Delete");
+//                        current_tasks--;
+//                        break;
+//                    }
+//                    tmp_stack.push(tmp_n.getValue());
+//                }
+//                //Restore the state of the heap
+//                int stack_size = tmp_stack.size();
+//                for(int x = 0 ; x < stack_size; x++){
+//                    Task tmp_task = tmp_stack.pop();
+//                    todo_list.insert(tmp_task.getPriority_value(),tmp_task);
+//                }
+//                continue;           //Skip the rest
+//            }
+//
+//            String description = input.next(); //Get the description of the task
+//            int priority_value = input.nextInt();   //Get the pritioty level of the task
+//            todo_list.insert(priority_value, new Task(priority_value,description,date_format.parse(time))); //insert ot in the heap
+//            current_tasks++;    //increment the counter
+////            System.out.printf("Add %s\n",time);
+//            //Check if the date is already exist or not, if it exist don't store it , if not store it
+//            boolean exist = false;
+//            for(int x = 0; x < time_list.size(); x++){
+//                if(time.equals(date_format.format(time_list.get(x)))){
+//                    exist = true;
+//                    break;
+//                }
+//            }
+//            if(!exist){
+//                diff_time++;    //increment the counter
+//                time_list.add(date_format.parse(time));
+////                time_list_bh.insert(date_format.parse(time),i);
+//            }
+//        }
+//
+////        todo_list.print_heap();
+//
+//        Collections.sort(time_list);    //Sort the list
+//
+////        System.out.println(diff_time);
+////        for(int i = 0; i < diff_time; i++){
+////            Date tmp = (Date) time_list_bh.max().getKey();
+////            time_list_bh.removeMax();
+////            time_list.add(tmp);
+////        }
+//
+//
+//        //Traverse on the time list to output the times in the correct order
+//        for(int i = 0; i < time_list.size(); i++){
+//            System.out.printf("TODOList %s\n",date_format.format(time_list.get(i)));
+//            //Traverse the heap and get the specific tasks for the specific date
+//            Stack<Task> tmp_stack = new Stack<>();
+//            for(int x = 0; x < current_tasks; x++){
+//                //Push and pop from the heap to the tmp stack
+//                Node<Integer,Task> tmp_n = new Node<>(todo_list.max().getKey(),todo_list.max().getValue());
+//                todo_list.removeMax();
+//                tmp_stack.push(tmp_n.getValue());
+//
+//                //If they for the specific date, print it
+//                if(tmp_n.getValue().getTime().equals(time_list.get(i)))
+//                    System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
+//            }
+//
+//
+//            //Restore the original state of the heap
+//            int stack_size = tmp_stack.size();
+//            for(int x = 0 ; x < stack_size; x++){
+//                //Pop then insert
+//                Task tmp_task = tmp_stack.pop();
+//                todo_list.insert(tmp_task.getPriority_value(),tmp_task);
+//            }
+//        }
+//
+//        //Print the whole todolist
+//        System.out.println("TODOList");
+//        for(int i = 0; i < current_tasks; i++){
+//            Node<Integer,Task> tmp_n = new Node<>(todo_list.max().getKey(),todo_list.max().getValue());
+//            System.out.printf("\t%s\n", tmp_n.getValue().getDescription());
+//            todo_list.removeMax();
+//        }
+////
 
 
 
@@ -670,48 +577,48 @@ public class Main {
 //        BinomialHeap<Integer,Character> bh = new BinomialHeap<>();
 //        bh.insert(1,'a');
 ////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(-1,'b');
-////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(3,'c');
-////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(0,'d');
-////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(10,'d');
-////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(0,'d');
-////        System.out.println("Final -----");
-////        bh.print_heap();
-//        bh.insert(3,'d');
-////        System.out.println("Final -----");
 //        bh.print_heap();
-////        SIZE: 3
-////        ->1. #0(<3,d>/) ->2. #1(<10,d><0,d>/) ->3. #2(<3,c><0,d>/<1,a><-1,b>/)
-//
-//
+//        bh.insert(-1,'b');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(3,'c');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(0,'d');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(10,'d');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(0,'d');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//        bh.insert(3,'d');
+//////        System.out.println("Final -----");
+//        bh.print_heap();
+//////        SIZE: 3
+//////        ->1. #0(<3,d>/) ->2. #1(<10,d><0,d>/) ->3. #2(<3,c><0,d>/<1,a><-1,b>/)
+////
+////
 //        BinomialHeap<Integer,Character> bh2 = new BinomialHeap<>();
 //        bh2.insert(5,'a');
-////        System.out.println("Final -----");
-////        bh2.print_heap();
+//        System.out.println("Final -----");
+//        bh2.print_heap();
 //        bh2.insert(-4,'b');
-////        System.out.println("Final -----");
-////        bh2.print_heap();
+//        System.out.println("Final -----");
+//        bh2.print_heap();
 //        bh2.insert(9,'c');
-////        System.out.println("Final -----");
-////        bh2.print_heap();
+//        System.out.println("Final -----");
+//        bh2.print_heap();
 //        bh2.insert(7,'d');
-////        System.out.println("Final -----");
-////        bh2.print_heap();
+//        System.out.println("Final -----");
+//        bh2.print_heap();
 //        bh2.insert(3,'c');
 //        bh2.print_heap();
 //
 ////        SIZE: 2
 ////        ->1. #0(<3,c>/) ->2. #2(<9,c><7,d>/<5,a><-4,b>/)
-//
+////
 //        System.out.println("*****************");
 //        bh.merge(bh2);
 //        bh.print_heap();
