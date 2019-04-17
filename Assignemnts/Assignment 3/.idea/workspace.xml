@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="448" column="60" selection-start-line="448" selection-start-column="60" selection-end-line="448" selection-end-column="60" />
+            <state relative-caret-position="135">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8151#8152#0" expanded="true" />
@@ -42,7 +42,6 @@
     <findStrings>
       <find>print_Heap</find>
       <find>cy</find>
-      <find>print</find>
       <find>TMP_LIST_SIZE</find>
       <find>insert</find>
       <find>print_h</find>
@@ -53,6 +52,7 @@
       <find>merge_tre</find>
       <find>nmolkm</find>
       <find>system</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,8 +196,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="448" column="60" selection-start-line="448" selection-start-column="60" selection-end-line="448" selection-end-column="60" />
+        <state relative-caret-position="135">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8151#8152#0" expanded="true" />
